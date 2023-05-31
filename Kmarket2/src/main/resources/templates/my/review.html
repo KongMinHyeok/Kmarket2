@@ -1,0 +1,42 @@
+<th:block th:include="@{my/_header.html}"/>
+      <main id="review">
+		<th:block th:include="@{my/_aside.html}"/>
+        <!-- section -->
+        <section>
+          <div id="banner">
+            <a href="" id="my_banner2"></a>
+          </div>
+
+          <div id="my_review_list">
+            <h3>나의 리뷰</h3>
+            <table>
+              <thead class="text-center">
+                <tr>
+                  <th>번호</th>
+                  <th>상품명</th>
+                  <th>내용</th>
+                  <th>평점</th>
+                  <th>작성일</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="el : ${reviewList}">
+				  <td th:text="${elStat.count}">1</td>
+                  <td th:text="${el.prodName}">상품명</td>
+                  <td th:text="${el.content}">배송이 빠릅니다. 잘사용하겠습니다.</td>
+                  <td th:switch="${el.rating}">
+                  	<span th:case="1" class="star star1"></span>
+                  	<span th:case="2" class="star star2"></span>
+                  	<span th:case="3" class="star star3"></span>
+                  	<span th:case="4" class="star star4"></span>
+                  	<span th:case="5" class="star star5"></span>
+                  </td>
+                  <td th:text="${#temporals.format(el.rdate, 'yyyy-MM-dd')}">2022-12-10</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+         
+        </section>
+      </main>
+<th:block th:include="@{my/_footer.html}"/>

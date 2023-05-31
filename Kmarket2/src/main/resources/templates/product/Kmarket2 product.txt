@@ -1,0 +1,19 @@
+2023-02-07
+파트분배 / 화면구현 시작
+product / view css부터
+목욜까지 product 구현 완료
+2023-02-09
+list done
+view css 중
+
+2023-02-20
+index 먼저하기
+list , view(js X) - 에러 모름 
+order, cart - js 하기
+
+2023-02-22
+index 관리자 페이지 이동버튼, search
+cart, order ajax 마무리/ 체크박스 삭제 기능(delete만 ajax cart 출력은 get으로)
+view review paging 하기
+오늘내로 cart 로직 마무리하고 최대한 order 까지
+order 주소 API 적용

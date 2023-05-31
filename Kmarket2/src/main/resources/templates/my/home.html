@@ -1,0 +1,182 @@
+<th:block th:include="@{my/_header.html}"/>
+<script>
+	document.addEventListener('DOMContentLoaded',()=>{
+		setDeliveryStat();
+	});
+ </script>
+      <main id="home">
+		<th:block th:include="@{my/_aside.html}"/>
+        
+        <!-- section -->
+        <section>
+          <div id="banner">
+            <a href="" id="my_banner1"></a>
+          </div>
+          <div id="my_recent_order">
+            <h3>최근주문내역<a href="" class="more"></a></h3>
+            <table>
+              <thead class="text-center">
+                <tr>
+                  <th>날짜</th>
+                  <th colspan="2">상품정보</th>
+                  <th>상태</th>
+                  <th>확인/신청</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="el : ${recOrder}">
+                  <td th:text="${#temporals.format(el.ordDate, 'yyyy-MM-dd')}">2022-12-13</td>
+                   
+                  <td><img th:src="@{|/images/${el.thumb1}|}" alt="" class="orderImg"></td>
+                  <td>
+                  	<p><a href="#">주문번호 :[[${el.ordNo}]]</a></p>
+                    <p th:text="${el.company}">상호명</p>
+                    <p th:text="${el.prodName}">상품명</p>
+                    <p>수량 : [[${el.ordCount}]]개</p>
+                    <p th:text="|${#numbers.formatInteger(el.ordTotPrice, '3','COMMA')}원|"></p>
+                  </td>
+                  <td th:text="${el.deliveryStatus}" class="deli_Stat">배송완료</td>
+                  <td>
+                  	<th:block th:if="${el.deliveryStatus != 3}">
+                    	<a href="" class="my_order_btn my_receive"></a>
+                    </th:block>
+                    <th:block th:if="${el.revNo == 0}">
+                    	<a href="" class="my_order_btn my_review"></a>
+                    </th:block>
+                    <a href="" class="my_order_btn my_return">반품신청</a>
+                    <a href="" class="my_order_btn my_exchange">교환신청</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="my_point_list">
+            <h3>포인트적립내역<a href="" class="more"></a></h3>
+            <table>
+              <thead class="text-center">
+                <tr>
+                  <th>날짜</th>
+                  <th>구분</th>
+                  <th>주문번호</th>
+                  <th>적립금액</th>
+                  <th>비고</th>
+                  <th>유효기간</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="el : ${recPoint}">
+                  <td th:text="${#temporals.format(el.rdate, 'yyyy-MM-dd')}">2022-12-10</td>
+                  <td>적립</td>
+                  <td th:text="${el.ordNo}">2022121001</td>
+                  <td th:text="${el.point}">340</td>
+                  <td th:text="${el.desc}">상품 구매확정</td>
+                  <td th:text="${#temporals.format(el.pointDate, 'yyyy-MM-dd')}">2024-12-10</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="my_review_list">
+            <h3>상품평<a href="" class="more"></a></h3>
+            <table>
+              <thead class="text-center">
+                <tr>
+                  <th>번호</th>
+                  <th>상품명</th>
+                  <th>내용</th>
+                  <th>평점</th>
+                  <th>작성일</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="el : ${recReview}">
+                  <td th:text="${elStat.count}">1</td>
+                  <td th:text="${el.prodName}">상품명</td>
+                  <td th:text="${el.content}">배송이 빠릅니다. 잘사용하겠습니다.</td>
+                  
+                  <td th:switch="${el.rating}">
+                  	<span th:case="1" class="star star1"></span>
+                  	<span th:case="2" class="star star2"></span>
+                  	<span th:case="3" class="star star3"></span>
+                  	<span th:case="4" class="star star4"></span>
+                  	<span th:case="5" class="star star5"></span>
+                  </td>
+                  <td th:text="${#temporals.format(el.rdate, 'yyyy-MM-dd')}">2022-12-10</td>
+                </tr>
+               
+              </tbody>
+            </table>
+          </div>
+          <div id="my_qna_list">
+            <h3>문의내역<a href="" class="more"></a></h3>
+            <table>
+              <thead class="text-center">
+                <tr>
+                  <th>번호</th>
+                  <th>문의채널</th>
+                  <th>문의유형</th>
+                  <th>제목</th>
+                  <th>작성일</th>
+                  <th>상태</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="el : ${recQna}">
+                  <td th:text="${elStat.size - elStat.index}">5</td>
+                  <td th:if="${el.seller} == null">고객센터</td>
+                  <td th:if="${el.seller} != null">판매자 게시판</td>
+                  <td th:text="${el.c1Name}">주문/결제</td>
+                  <td th:text="${el.title}">신용카드 결제 중 오류가 난 경우 어떻게 하나요?</td>
+                  <td th:text="${#dates.format(el.rdate, 'yyyy-MM-dd')}">2023-12-12</td>
+                  <td class="qna_stat" th:text="${el.status}">0</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          <div id="my_confirm">
+            <span></span>
+            <div>
+              <div>
+                <span id="my_address"></span><a href="" class="my_change"></a>
+                <p class="my_cur_data" th:text="${myInfo.addr1}"></p>
+				<p class="my_cur_data" th:text="${myInfo.addr2}"></p>
+                <p class="my_update"></p>
+              </div>
+              <div>
+                <span id="my_email"></span><a href="" class="my_change"></a>
+                <p class="my_cur_data" th:text="${myInfo.email}">abcd123@gmail.com</p>
+                <p class="my_update" th:text="|(최종수정일 ${#dates.format(myInfo.rdate, 'yyyy-MM-dd')})|">(최종수정일 2021-12-10)</p>
+              </div>
+              <div>
+                <span id="my_phone"></span><a href="" class="my_change"></a>
+                <p class="my_cur_data" th:text="${myInfo.hp}">010-1234-5678</p>
+                <p class="my_update" th:text="|(최종수정일 ${#dates.format(myInfo.rdate, 'yyyy-MM-dd')})|">(최종수정일 2021-12-10)</p>
+              </div>
+            </div>
+            
+          </div>
+        </section>
+      </main>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Launch static backdrop modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+<th:block th:include="@{my/_footer.html}"/>

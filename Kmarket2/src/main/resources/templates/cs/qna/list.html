@@ -1,0 +1,112 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      
+<th:block th:include="@{cs/_header.html}"/>
+
+      <section id="cs">
+        <div class="qna">
+          <nav>
+            <div>
+              <p>홈<span>></span>문의하기</p>
+            </div>
+          </nav>
+          <section class="list">
+            <aside>
+              <h2>문의하기</h2>
+              <ul>
+                <li th:classappend="${cate1} eq 1 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=1&pg=1}">회원</a></li>
+                <li th:classappend="${cate1} eq 2 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=2&pg=1}">쿠폰/혜택/이벤트</a></li>
+                <li th:classappend="${cate1} eq 3 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=3&pg=1}">주문/결제</a></li>
+                <li th:classappend="${cate1} eq 4 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=4&pg=1}">배송</a></li>
+                <li th:classappend="${cate1} eq 5 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=5&pg=1}">취소/반품/교환</a></li>
+                <li th:classappend="${cate1} eq 6 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=6&pg=1}">여행/숙박/항공</a></li>
+                <li th:classappend="${cate1} eq 9 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=9&pg=1}">안전거래</a></li>
+              </ul>
+            </aside>
+            <article>
+              <nav th:if="${cate1} eq 1">
+                <h1>회원</h1>
+                <h2>회원관련 문의 내용입니다.</h2>
+              </nav>
+              
+              <nav th:if="${cate1} eq 2">
+                <h1>쿠폰/이벤트</h1>
+                <h2>쿠폰/이벤트관련 문의 내용입니다.</h2>
+              </nav>
+              
+              <nav th:if="${cate1} eq 3">
+                <h1>주문/결제</h1>
+                <h2>주문/결제관련 문의 내용입니다.</h2>
+              </nav>
+              
+              <nav th:if="${cate1} eq 4">
+                <h1>배송</h1>
+                <h2>배송관련 문의 내용입니다.</h2>
+              </nav>
+              
+              <nav th:if="${cate1} eq 5">
+                <h1>취소/반품/교환</h1>
+                <h2>취소/반품/교환관련 문의 내용입니다.</h2>
+              </nav>
+              
+              <nav th:if="${cate1} eq 6">
+                <h1>여행/숙박/항공</h1>
+                <h2>여행/숙박/항공관련 문의 내용입니다.</h2>
+              </nav>
+              
+              <nav th:if="${cate1} eq 9">
+                <h1>안전거래</h1>
+                <h2>안전거래관련 문의 내용입니다.</h2>
+              </nav>
+              <table>
+                <tr th:each="qna:${qnas}">
+                    <td><a th:href="@{/cs/qna/view(no=${qna.no},cate1=${qna.cate1},pg=${pg})}">&#91;[[${qna.c2Name}]]&#93;[[${qna.title}]]</a></td>
+                    <td th:if="${qna.answer} ne null " style="color:#3DB7CC; font-weight:bold; font-size:13px">답변완료</td>
+                    <td th:if="${qna.answer} eq null">검토중</td>
+                    <td>[[${qna.uid}]]</td>
+                    <td>[[${#strings.substring(qna.rdate,2,10)}]]</td>
+                </tr>
+              </table>
+
+              <div class="page">
+              <th:block th:if="${cate1} eq null">
+              	<th:block th:if="${groups[0]>1}">
+                	<a th:href="@{/cs/qna/list(group=qna,pg=${groups[0]-1})}" class="prev">이전</a>
+                </th:block>
+                
+                <th:block th:each="num:${#numbers.sequence(groups[0],groups[1])}">
+                	<a th:href="@{/cs/qna/list(group=qna,pg=${num})}"
+                   		th:class="${num==currentPage?'num current':'num'}">[[${num}]]</a>
+                </th:block>
+                
+                <th:block th:if="${groups[1]<lastPageNum}">
+                	<a th:href="@{/cs/qna/list(group=qna,pg=${groups[1]+1})}" class="next">다음</a>
+                </th:block>
+              </th:block>
+              
+              <th:block th:if="${cate1} ne null">
+              	<th:block th:if="${groups[0]>1}">
+                	<a th:href="@{/cs/qna/list(group=qna,pg=${groups[0]-1})}" class="prev">이전</a>
+                </th:block>
+                
+                <th:block th:each="num:${#numbers.sequence(groups[0],groups[1])}">
+                	<a th:href="@{/cs/qna/list(group=notice,cate1=${cate1},pg=${num})}"
+                   		th:class="${num==currentPage?'num current':'num'}">[[${num}]]</a>
+                </th:block>
+                
+                <th:block th:if="${groups[1]<lastPageNum}">
+                	<a th:href="@{/cs/qna/list(group=qna,pg=${groups[1]+1})}" class="next">다음</a>
+                </th:block>
+              </th:block>
+              </div>
+
+              <a th:href="@{/cs/qna/write}" class="btnWrite">문의하기</a>
+
+            </article>
+          </section>
+        </div>
+      </section>
+
+<th:block th:include="@{cs/_footer.html}"/>
+
+</html>

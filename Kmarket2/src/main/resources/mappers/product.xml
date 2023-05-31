@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kmarket2.dao.ProductDAO">
+
+	<select id="selectCate1" resultType="kr.co.kmarket2.vo.ProductCate1VO">
+		select * from `km_product_cate1`;
+	</select>
+	<select id="selectCate2" resultType="kr.co.kmarket2.vo.ProductCate2VO">
+		select * from `km_product_cate2`;
+	</select>
+
+	<select id="selectProductsBest" resultType="kr.co.kmarket2.vo.ProductVO">
+		SELECT * from `km_product` order by `sold` desc limit 5;
+	</select>
+	<select id="selectProductsHit" resultType="kr.co.kmarket2.vo.ProductVO">
+		SELECT * from `km_product` order by `hit` desc limit 8;
+	</select>
+	<select id="selectProductsScore" resultType="kr.co.kmarket2.vo.ProductVO">
+		SELECT * from `km_product` order by `score` desc limit 8;
+	</select>
+	<select id="selectProductsNew" resultType="kr.co.kmarket2.vo.ProductVO">
+		SELECT * from `km_product` order by `rdate` desc limit 8;
+	</select>
+	<select id="selectProductsDiscount" resultType="kr.co.kmarket2.vo.ProductVO">
+		SELECT * from `km_product` order by `discount` desc limit 8;
+	</select>
+	
+	<select id="selectCartProducts" resultType="kr.co.kmarket2.vo.ProductCartVO">
+		select a.*, b.`prodName`, b.`thumb1`, b.`descript`, b.`prodCate1`, b.`prodCate2` from `km_product_cart`
+		 as a join `km_product` as b 
+		 on a.`prodNo`=b.`prodNo` 
+		 where `uid`=#{uid};
+	</select>
+
+	<select id="selectProducts" resultType="kr.co.kmarket2.vo.ProductVO">
+		SELECT a.*, b.c1Name, b.cate1, c.cate2,c.c2Name FROM `km_product` AS a 
+		JOIN `km_product_cate1` AS b ON a.prodCate1 = b.cate1
+		JOIN `km_product_cate2` AS c ON b.cate1 = c.cate1
+		AND a.prodCate2=c.cate2 WHERE a.prodCate1=#{prodcate1} and a.prodCate2=#{prodcate2}
+		<if test="sort != null and !sort.equals('')">
+			<choose>
+				<when test="sort == 'row'">
+					order by `price` desc;
+				</when>
+				<otherwise>
+					order by #{sort} desc;
+				</otherwise>
+			</choose>
+		</if>
+	</select>
+
+	<select id="selectProduct" resultType="kr.co.kmarket2.vo.ProductVO">
+		SELECT * FROM `km_product` WHERE `prodNo` = #{prodNo};
+	</select>
+
+	<select id="selectReview" resultType="kr.co.kmarket2.vo.ProductReviewVO">
+		SELECT a.*, b.prodName FROM `km_product_review` AS a
+		JOIN `km_product` AS b ON a.`prodNo` = b.`prodNo`
+		WHERE a.`prodNo` = #{prodNo}
+		order by `rdate` desc limit #{start} , 5;
+	</select>
+	
+	<insert id="insertCart" useGeneratedKeys="true">
+		insert into `km_product_cart` set
+		`uid`=#{uid},
+		`prodNo`=#{prodNo},
+		`count`=#{count},
+		`price`=#{price},
+		`discount`=#{discount},
+		`point`=#{point},
+		`delivery`=#{delivery},
+		`total`=#{total},
+		`rdate`= now();
+	</insert>
+	
+	 <select id="selectCartByCartNo" resultType="kr.co.kmarket2.vo.ProductCartVO">
+    	select a.*, b.`prodName`, b.`thumb1`, b.`descript`, b.`prodCate1`, b.`prodCate2` from `km_product_cart` as a join `km_product` as b on a.prodNo=b.prodNo where `cartNo` in (<foreach collection="list" item="cartNo" separator=",">#{cartNo}</foreach>);
+    </select>
+	
+	<select id="selectCountTotal" resultType="int">
+		select count(`prodNo`) from `km_product` WHERE prodCate1=#{prodcate1} AND prodCate2=#{prodcate2};
+	</select>
+	
+    <select id="selectCountTotalReview" resultType="int" parameterType="map">
+        select count(`revNo`) from `km_product_review` where `prodNo`=#{prodNo};
+     </select>
+	
+	
+	
+    <delete id="deleteCart">
+    	delete from `km_product_cart` where `cartNo` in (<foreach collection="list" item="chks" separator=",">#{chks}</foreach>);
+    </delete>
+
+
+</mapper>

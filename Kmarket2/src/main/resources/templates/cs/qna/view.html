@@ -1,0 +1,60 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      
+<th:block th:include="@{cs/_header.html}"/>
+      <section id="cs">
+        <div class="qna">
+          <nav>
+            <div>
+              <p>홈<span>></span>문의하기</p>
+            </div>
+          </nav>
+          <section class="view">
+            <aside>
+              <h2>문의하기</h2>
+              <ul>
+                <li th:classappend="${cate1} eq 1 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=1}">회원</a></li>
+                <li th:classappend="${cate1} eq 2 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=2}">쿠폰/혜택/이벤트</a></li>
+                <li th:classappend="${cate1} eq 3 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=3}">주문/결제</a></li>
+                <li th:classappend="${cate1} eq 4 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=4}">배송</a></li>
+                <li th:classappend="${cate1} eq 5 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=5}">취소/반품/교환</a></li>
+                <li th:classappend="${cate1} eq 6 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=6}">여행/숙박/항공</a></li>
+                <li th:classappend="${cate1} eq 9 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=9}">안전거래</a></li>
+              </ul>
+            </aside>
+            <article>
+              <nav>
+                <h2 class="title">&#91;[[${article.c2Name}]]&#93;[[${article.title}]]</h2>                
+                <p>
+                  <span>[[${article.uid}]]</span>
+                  <span>[[${#strings.substring(article.rdate,2,10)}]]</span>
+                </p>
+              </nav>
+
+              <div class="content">
+                <p>
+                  [[${article.content}]]
+                </p>
+                
+                <hr>
+                <th:block th:if="${article.answer} eq null">
+                <p>
+                	<h2 class="titlenull">현재 답변대기중입니다.</h2> 
+                </p>
+                </th:block>
+                <th:block th:if="${article.answer} ne null">
+                <p>
+                	<h2 class="title">☞[답변] [[${article.title}]]</h2>
+                	<p class="answer">[[${article.answer}]]</p>
+                </p>
+                </th:block>
+              </div>
+              <a th:href="@{/cs/qna/list(group=qna,cate1=${cate1},pg=${pg})}" class="btnList">목록보기</a>
+            </article>
+          </section>
+        </div>
+      </section>
+
+<th:block th:include="@{cs/_footer.html}"/>
+
+</html>

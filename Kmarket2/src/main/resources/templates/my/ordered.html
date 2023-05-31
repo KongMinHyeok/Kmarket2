@@ -1,0 +1,98 @@
+<th:block th:include="@{my/_header.html}"/>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{
+			setDeliveryStat();
+			var today = new Date();
+
+			today.setDate(today.getDate() + 7); // 7일 더하여 setting
+		});
+	 </script>
+      <main id="ordered">
+       <th:block th:include="@{my/_aside.html}"/>
+        <!-- section -->
+        <section>
+          <div id="banner">
+            <a href="">
+              <img th:src="@{/img/my/my_banner1.jpg}" alt="my_banner1" id="my_banner1" class="my_banner">
+            </a>
+          </div>
+          
+          <div id="my_all_order">
+            <h3>전체주문내역</h3>
+            <div id="period">
+              <div></div>
+              <div>
+                <ul class="list-group list-group-horizontal">
+                  <li><a th:href="@{/my/ordered(periodNum=7, period='DAY')}" th:class="${periodOn} == 7DAY ? on : ''"><strong>1</strong>주일</a></li>
+                  <li><a th:href="@{/my/ordered(periodNum=15, period='DAY')}" th:class="${periodOn} == 15DAY ? on : ''"><strong>15</strong>일</a></li>
+                  <li><a th:href="@{/my/ordered(periodNum=0, period='MONTH')}" th:class="${periodOn} == 0MONTH ? on : ''"><strong>1</strong>개월</a></li>
+                </ul>
+              </div>
+              <div>
+                <ul class="list-group list-group-horizontal">
+                  <li><a th:href="@{/my/ordered(periodNum=5, period='MONTH')}" th:class="${periodOn} == 5MONTH ? on : ''"><strong>10</strong>월</a></li>
+                  <li><a th:href="@{/my/ordered(periodNum=4, period='MONTH')}" th:class="${periodOn} == 4MONTH ? on : ''"><strong>11</strong>월</a></li>
+                  <li><a th:href="@{/my/ordered(periodNum=3, period='MONTH')}" th:class="${periodOn} == 3MONTH ? on : ''"><strong>12</strong>월</a></li>
+                  <li><a th:href="@{/my/ordered(periodNum=2, period='MONTH')}" th:class="${periodOn} == 2MONTH ? on : ''"><strong>1</strong>월</a></li>
+                  <li><a th:href="@{/my/ordered(periodNum=1, period='MONTH')}" th:class="${periodOn} == 1MONTH ? on : ''"><strong th:text="${#calendars.format(#calendars.createNow(), 'M')}">2</strong>월</a></li>
+                </ul>
+              </div>
+              
+              <div>
+              	<p th:text="${date1}"></p>
+                	<input type="date" name="" id="order_start" min="2022-02-24">
+                </th:block>
+                <span>~</span>
+                <input type="date" name="" id="order_End" th:with="currentDate=${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}" th:max="${currentDate}">
+              </div>
+              <div>
+                <a href=""></a>
+              </div>
+            </div>
+            <table>
+              <thead class="text-center">
+                <tr>
+                  <th>날짜</th>
+                  <th colspan="2">상품정보</th>
+                  <th>상태</th>
+                  <th>확인/신청</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="el : ${OrdList}">
+                  <td th:text="${#temporals.format(el.ordDate, 'yyyy-MM-dd')}">2022-12-13</td>
+                   
+                  <td><img th:src="@{|/images/${el.thumb1}|}" alt="" class="orderImg"></td>
+                  <td>
+                    <p th:text="${el.company}">상호명</p>
+                    <p th:text="${el.prodName}">상품명</p>
+                    <p>수량 : [[${el.ordCount}]]개 / 주문번호 : [[${el.ordNo}]]</p>
+                    <p th:text="|${#numbers.formatInteger(el.ordTotPrice, '3','COMMA')}원|"></p>
+                  </td>
+                  <td th:text="${el.deliveryStatus}" class="deli_Stat">배송완료</td>
+                  <td>
+                  	<th:block th:if="${el.deliveryStatus != 3}">
+                    	<a href="" class="my_order_btn my_receive"></a>
+                    </th:block>
+                    <th:block th:if="${el.revNo == 0}">
+                    	<a href="" class="my_order_btn my_review"></a>
+                    </th:block>
+                    <a href="" class="my_order_btn my_return">반품신청</a>
+                    <a href="" class="my_order_btn my_exchange">교환신청</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div id="page">
+              <ul>
+                <li id="prev"><a href="#"></a></li>
+                <li><a href="" id="" class="num on">1</a></li>
+                <li><a href="" id="" class="num">2</a></li>
+                <li><a href="" id="" class="num">3</a></li>
+                <li id="next"><a href=""></a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+<th:block th:include="@{my/_footer.html}"/>

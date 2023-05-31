@@ -1,0 +1,110 @@
+<th:block th:include="@{admin/_header.html}"/>
+	<script>
+		document.addEventListener("DOMContentLoaded", ()=>{
+			adminListSeachEvent();
+			checkAll();
+			deleteCheck('/kmarket2/admin/product/delete/check', '/kmarket2/admin/product/list'); // 선택삭제(삭제요청url, 삭제후이동url)
+			adminDeleteProd();
+		});
+	</script>
+    <main id="main_admin_list" class="flex-shrink-0">
+      <div class="container d-flex flex-row">
+        <div class="me-4">
+         <th:block th:include="@{admin/_aside.html}"/>
+        </div>
+        <div class="col">
+          <div id="admin_nav" class="row align-items-end border-bottom border-1 border-dark pt-5 mb-4">
+            <div class="col-6 h3 fw-bold">상품목록</div>
+            <div class="col-6 text-end mb-1">
+              <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb d-flex justify-content-end mb-0">
+                  <li class="breadcrumb-item">Home</li>
+                  <li class="breadcrumb-item" aria-current="page">상품관리</li>
+                  <li class="breadcrumb-item fw-bold" aria-current="page">상품목록</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+          <div class="d-flex justify-content-start mb-3">
+            <select name="condition" class="form-select w-25 me-3" id="admin_condition">
+              <option value="prodName">상품명</option>
+              <option value="prodNo">상품코드</option>
+              <option value="company">제조사</option>
+              <option value="seller">판매자</option>
+            </select>
+            <input type="text" name="search_value" class="form-control w-25 me-3" id="search_value">
+            <button class="btn btn-secondary" id="btn_admin_search">검색</button>
+          </div>
+          
+          <table class="table border-top text-center align-middle" id="admin_table">
+            <thead class="table-light">
+              <tr>
+                <td><input type="checkbox" name="" id="check_all" class="form-check-input"></td>
+                <td>이미지</td>
+                <td>상품코드</td>
+                <td>상품명</td>
+                <td>판매가격</td>
+                <td>할인율</td>
+                <td>포인트</td>
+                <td>재고</td>
+                <td>판매자</td>
+                <td>조회</td>
+                <td>관리</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="product : ${products}">
+                <td><input type="checkbox"  th:data-no="${product.prodNo}" name="" id="" class="form-check-input check_no"></td>
+                <td class="admin_list_img"><img th:src="@{|/images/${product.thumb1}|}" alt="" class="img-fluid"></td>
+                <td th:text="${product.prodNo}"></td>
+                <td th:text="${product.prodName}">오리털 글램핑 텐트</td>
+                <td th:text="${product.price}">86000</td>
+                <td th:text="${product.discount}">10</td>
+                <td th:text="${product.point}">8600</td>
+                <td th:text="${product.stock}">1000</td>
+                <td th:text="${product.seller}">qwqwqw1</td>
+                <td th:text="${product.hit}">1000</td>
+                <td>
+                  <button class="btn btn-info">수정</button>
+                  <button class="btn btn-secondary btnDeleteProd" th:id="${product.prodNo}">삭제</button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+          <div class="text-start">
+            <button type="button" id="btn_check_delete" class="btn btn-light border">선택삭제</button>
+          </div>
+          
+          
+          <div id="paging_nav">
+          <nav th:if="${totalPages gt 1}">
+            <ul class="pagination justify-content-center">
+            
+              <li th:if="${startPages gt 1}">
+                <a class="page-link" th:href="@{/admin/product/list(pageNum=${startPages}-1)}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              
+              <li class="page-item" th:each="page : ${#numbers.sequence(startPages,endPages)}" th:class="${currentPage eq page} ? active">
+              	<a class="page-link" th:href="@{/admin/product/list(pageNum=${page})}" th:text="${page}"></a>
+              </li>
+              <li class="page-item" th:if="${endPages lt totalPages}">
+                <a class="page-link" th:href="@{/admin/product/list(pageNum=${endPages}+1)}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          </div>
+          
+          
+          <div class="py-4 text-center my-5 h6" id="admin_list_info">
+            <img th:src="@{/img/admin/admin_ico_info.png}" alt="">
+            Tip! 전자상거래 등에서의 상품 등의 정보제공에 관한 고시에 따라 총 35개 상품군에 대해 상품 특성 등을 양식에 따라 입력할 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </main>
+<th:block th:include="@{admin/_footer.html}"/>

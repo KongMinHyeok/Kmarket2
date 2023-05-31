@@ -1,0 +1,167 @@
+<th:block th:include="@{_header.html}"/>
+    <!-- 베스트 상품 -->
+    <article class="best">
+        <h1><i class="fas fa-crown" aria-hidden="true"></i>베스트상품</h1>
+        <ol>
+            <li th:each="best,i:${best}">
+                <a th:href="@{/product/view(prodNo=${best.prodNo})}">
+                    <div class="thumb">
+                        <i th:value="i"></i>
+                        <img th:src="@{|/images/${best.thumb1}|}" alt="상품사진">
+                    </div>
+                    <h2>[[${best.prodName}]]</h2>
+                    <div class="org-price">
+                        <del>[[${best.price}]]</del>
+                        <span>[[${best.discount}]]%</span>
+                    </div>
+                    <div class="dis-price">
+                        <ins>[[${best.price}*(100-${best.discount})/100]]</ins>
+                    </div>
+                </a>
+            </li>
+        </ol>
+    </article>
+    <!-- 베스트 상품 끝 -->
+</aside>
+<section>
+    <!-- 슬라이더 -->
+    <section class="slider">
+        <ul>
+            <li>
+                <a href="#">
+                    <img src="https://via.placeholder.com/985x447" alt="item1">
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="https://via.placeholder.com/985x447" alt="item2">
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="https://via.placeholder.com/985x447" alt="item3">
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="https://via.placeholder.com/985x447" alt="item4">
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="https://via.placeholder.com/985x447" alt="item5">
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- 히트 상품 -->
+    <section class="hit" id="hit">
+        <h3><span>히트상품</span></h3>
+        <th:block th:each="hit, i:${hit}">
+	       <article>
+	           <a th:href="@{/product/view(prodNo=${hit.prodNo})}">
+	               <div class="thumb">
+	                   <img th:src="@{|/images/${hit.thumb1}|}" alt="상품사진">
+	               </div>
+	               <h2>[[${hit.prodName}]]</h2>
+	               <p>[[${hit.descript}]]</p>
+	               <div class="org-price">
+	                   <del>[[${hit.price}]]</del>
+	                   <span>[[${hit.discount}]]%</span>
+	               </div>
+	               <div class="dis-price" th:if="${hit.delivery} == 0">
+	                   <ins>[[${hit.price}*(100-${hit.discount}/100)]]</ins>
+	                   <span class="free-delivery">무료배송</span>
+	               </div>
+	               <div class="dis-price" th:unless="${hit.delivery} == 0">
+	                   <ins>[[${hit.price}*(100-${hit.discount}/100)]]</ins>
+	                   <span class="delivery">배송비 [[${hit.delivery}]]</span>
+	               </div>
+	           </a>
+	       </article>
+        </th:block>
+    </section>
+    <!-- 추천 상품 -->
+    <section class="recommend" id="recommend">
+        <h3><span>추천상품</span></h3>
+        <th:block th:each="score, i:${score}"> 
+        <article>
+            <a th:href="@{/product/view(prodNo=${score.prodNo})}">
+                <div class="thumb">
+                    <img th:src="@{|/images/${score.thumb1}|}" alt="상품사진">
+                </div>
+                <h2>[[${score.prodName}]]</h2>
+                <p>[[${score.descript}]]</p>
+                <div class="org-price">
+                    <del>[[${score.price}]]</del>
+                    <span>[[${score.discount}]]%</span>
+                </div>
+                <div class="dis-price" th:if="${score.delivery} == 0">
+                    <ins>[[${score.price}*(100-${score.discount}/100)]]</ins>
+                    <span class="free-delivery">무료배송</span>
+                </div>
+                <div class="dis-price" th:unless="${score.delivery} == 0">
+                    <ins>[[${score.price}*(100-${score.discount}/100)]]</ins>
+                    <span class="delivery">배송비 [[${score.delivery}]]</span>
+                </div>
+            </a>
+        </article>
+        </th:block>
+    </section>
+    <!-- 최신 상품 -->
+    <section class="new" id="new">
+        <h3><span>최신상품</span></h3>
+         <th:block th:each="latest, i:${latest}"> 
+         <article th:each="latest, i:${latest}">
+            <a th:href="@{/product/view(prodNo=${latest.prodNo})}">
+                <div class="thumb">
+                    <img th:src="@{|/images/${latest.thumb1}|}" alt="상품사진">
+                </div>
+                <h2>[[${latest.prodName}]]</h2>
+                <p>[[${latest.descript}]]</p>
+                <div class="org-price">
+                    <del>[[${latest.price}]]</del>
+                    <span>[[${latest.discount}]]%</span>
+                </div>
+                <div class="dis-price" th:if="${latest.delivery} == 0">
+                    <ins>[[${latest.price}*(100-${latest.discount}/100)]]</ins>
+                    <span class="free-delivery">무료배송</span>
+                </div>
+                <div class="dis-price" th:unless="${latest.delivery} == 0">
+                    <ins>[[${latest.price}*(100-${latest.discount}/100)]]</ins>
+                    <span class="delivery">배송비 [[${latest.delivery}]]</span>
+                </div>
+            </a>
+        </article>
+        </th:block>
+    </section>
+    <!-- 할인 상품 -->
+        <section class="discount" id="discount">
+            <h3><span>할인상품</span></h3>
+            <th:block th:each="discount, i:${discount}"> 
+            <article th:each="discount, i:${discount}">
+            <a th:href="@{/product/view(prodNo=${discount.prodNo})}">
+                <div class="thumb">
+                    <img th:src="@{|/images/${discount.thumb1}|}" alt="상품사진">
+                </div>
+                <h2>[[${discount.prodName}]]</h2>
+                <p>[[${discount.descript}]]</p>
+                <div class="org-price">
+                    <del>[[${discount.price}]]</del>
+                    <span>[[${discount.discount}]]%</span>
+                </div>
+                <div class="dis-price" th:if="${discount.delivery} == 0">
+                    <ins>[[${discount.price}*(100-${discount.discount}/100)]]</ins>
+                    <span class="free-delivery">무료배송</span>
+                </div>
+                <div class="dis-price" th:unless="${discount.delivery} == 0">
+                    <ins>[[${discount.price}*(100-${discount.discount}/100)]]</ins>
+                    <span class="delivery">배송비 [[${discount.delivery}]]</span>
+                </div>
+            </a>
+      		</article>
+      		</th:block>
+        </section>
+    </section>
+</main>
+<th:block th:include="@{_footer.html}"/>

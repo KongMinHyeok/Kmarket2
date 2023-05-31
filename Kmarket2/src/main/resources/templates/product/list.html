@@ -1,0 +1,75 @@
+<th:block th:include="@{product/_header.html}"/>
+   <section class="list">
+       <!-- 제목, 페이지 네비 -->
+       <nav>
+           <h1>상품목록</h1>
+           <p>
+               HOME > 
+               <th:block th:each="ca1, i:${cate1}">
+               	<th:block th:if="${prodcate1} == ${ca1.cate1}"><span>[[${ca1.c1Name}]]</span></th:block>
+               	</th:block>
+                >
+                <th:block th:each="ca2, i:${cate2}">
+              		<th:block th:if="${prodcate1} == ${ca2.cate1} and ${prodcate2} == ${ca2.cate2}"><strong>[[${ca2.c2Name}]]</strong></th:block>
+           		</th:block>
+           </p>
+       </nav>
+       <!-- 정렬메뉴 -->
+       <ul class="sort">
+           <li><a th:href="@{/product/list(prodCate1=${prodcate1},prodCate2=${prodcate2},sort=sold)}" class="listsort" th:classappend="${sort == 'sold'} ? 'on' : ''">판매량 순</a></li>
+           <li><a th:href="@{/product/list(prodCate1=${prodcate1},prodCate2=${prodcate2},sort=price)}" class="listsort" th:classappend="${sort == 'price'} ? 'on' : ''">낮은가격 순</a></li>
+           <li><a th:href="@{/product/list(prodCate1=${prodcate1},prodCate2=${prodcate2},sort=row)}" class="listsort" th:classappend="${sort == 'row'} ? 'on' : ''">높은가격 순</a></li>
+           <li><a th:href="@{/product/list(prodCate1=${prodcate1},prodCate2=${prodcate2},sort=score)}" class="listsort" th:classappend="${sort == 'score'} ? 'on' : ''">평점높은 순</a></li>
+           <li><a th:href="@{/product/list(prodCate1=${prodcate1},prodCate2=${prodcate2},sort=review)}" class="listsort" th:classappend="${sort == 'review'} ? 'on' : ''">후기많은 순</a></li>
+           <li><a th:href="@{/product/list(prodCate1=${prodcate1},prodCate2=${prodcate2},sort=rdate)}" class="listsort" th:classappend="${sort == 'rdate'} ? 'on' : ''">최근등록 순</a></li>
+       </ul>
+       <!-- 상품목록 -->
+        <table border="0">
+            <tr th:each="prod,i:${products}">
+                <td>
+                    <a th:href="@{/product/view(prodNo=${prod.prodNo},prodCate1=${prod.prodCate1},prodCate2=${prod.prodCate2})}" class="thumb"><img th:src="@{|/images/${prod.thumb1}|}" alt="상품이미지"></a>
+                </td>
+                <td>
+                    <h3 class="name">[[${prod.prodName}]]</h3>
+                    <a th:href="@{/product/view(prodNo=${prod.prodNo},prodCate1=${prod.prodCate1},prodCate2=${prod.prodCate2})}" class="desc">[[${prod.descript}]]</a>
+                </td>
+                <td>
+                    <ul>
+                        <li th:if="not ${#strings.isEmpty(prod.discount)}"><ins class="dis-price">[[${prod.price}*(100-${prod.discount})/100]]</ins></li>
+                        <li>
+                            <del class="org-price">[[${prod.price}]]]</del>
+                            <span th:if="not ${#strings.isEmpty(prod.discount)}" class="discount">10%</span>
+                        </li>
+                        <li th:if="${prod.delivery} == 0"><span class="free-delivery">무료배송</span></li>
+                        <li th:unless="${prod.delivery} == 0"><span>배송비 [[${prod.delivery}]]</span></li>
+                    </ul>
+                </td>
+                <td>
+                    <h4 class="seller">
+                        <i class="fas fa-home" aria-hidden="true">[[${prod.seller}]]</i>
+                    </h4>
+                    <h5 class="badge power">판매자등급</h5>
+                    <h6 th:if="${prod.score} != 0" class="rating star" th:attrappend="class = ${prod.score}">상품평</h6>
+                    <h6 th:unless="${prod.score} != 0" class="rating">등록된 상품평이 없습니다.</h6>
+                </td>
+            </tr>
+        </table>
+        <div class="paging">
+        	<th:block th:if="${groups[0]>1}">
+	            <span class="prev"><a href="@{/list(pg=${groups[0]-1},cate1=${cate1},cate2=${cate2},sort=${sort})}">&lt;이전</a></span>
+        	</th:block>
+			<th:block th:if="${groups[1] != 0}">
+        	<th:block th:each="num:${#numbers.sequence(groups[0], groups[1])}">
+	            <span class="num">
+	                <a th:href="@{/list(pg=${num},cate1=${cate1},cate2=${cate2},sort=${sort})}" 
+	                   th:class="${num == currentPage ? 'num on' : 'num'}">[[${num}]]</a>
+	            </span>
+        	</th:block>
+        	</th:block>
+        	<th:block th:if="${groups[1]<lastPageNum}">
+	            <span class="prev"><a href="@{/list(pg=${groups[1]+1},cate1=${cate1},cate2=${cate2},sort=${sort})}">다음&gt;</a></span>
+        	</th:block>
+        </div>
+    </section>
+</main>
+<th:block th:include="@{product/_footer.html}"/>

@@ -1,0 +1,108 @@
+<th:block th:include="@{admin/_header.html}"/>
+<script>
+	document.addEventListener("DOMContentLoaded", ()=>{
+		getAdminCate1Qna(); // adimin cs faq cate1 이 바뀔때 테이블 업데이트
+		setAdminCate2Select(); // cate1 값이 변화할때 cate2 select 불러오기
+		setAdminCate(); // cate 값이 존재할때 select 값 설정
+		getAdminCate2Qna(); // 묻고답하기 cate2 바뀔때 테이블 업데이트
+		qnaStat(); // 문의내역 - 상태 변경(0 = 검토중, 1 = 답변완료)
+		checkAll(); // 모두 체크 설정
+		deleteCheck('/kmarket2/admin/cs/qna/delete/check', '/kmarket2/admin/cs/qna/list'); // 선택삭제(삭제요청url, 삭제후이동url)
+	});
+</script>
+    <main id="main_admin_qna_list" class="flex-shrink-0">
+      <div class="container d-flex flex-row">
+        <div class="me-4">
+          <th:block th:include="@{admin/_aside.html}"/>
+        </div>
+        <div class="col">
+          <div id="admin_nav" class="row align-items-end border-bottom border-1 border-dark pt-5 mb-4">
+            <div class="col-6 h3 fw-bold">문의하기 목록</div>
+            <div class="col-6 text-end mb-1">
+              <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb d-flex justify-content-end mb-0">
+                  <li class="breadcrumb-item">Home</li>
+                  <li class="breadcrumb-item" aria-current="page">고객센터</li>
+                  <li class="breadcrumb-item fw-bold" aria-current="page">문의하기</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+          <div>
+            <div class="d-flex mb-2">
+             <select name="" id="admin_cs_cate1" class="form-select me-3 w-25">
+                <option value="0" selected>1차 유형</option>
+                <option value="1" th:selected="${cate1}==1">회원</option>
+                <option value="2" th:selected="${cate1}==2">쿠폰/혜택/이벤트</option>
+                <option value="3" th:selected="${cate1}==3">주문/결제</option>
+                <option value="4" th:selected="${cate1}==4">배송</option>
+                <option value="5" th:selected="${cate1}==5">취소/반품/교환</option>
+                <option value="6" th:selected="${cate1}==6">여행/숙박/항공</option>
+                <option value="9" th:selected="${cate1}==9">안전거래</option>
+              </select>
+              <select name="" id="admin_cs_cate2" class="form-select w-25">
+                <option value="0">2차 유형</option>
+                <th:block th:each=" list : ${cate2List}">
+                	<option th:value="${list.cate2}" th:text="${list.c2Name}" th:selected="${cate2}==${listStat.count}">2차 유형</option>
+                </th:block>
+              </select>
+            </div>
+            <table class="table border-top text-center align-middle" id="admin_cs_table">
+              <thead class="table-light align-middle">
+              	<tr>
+	                <th><input type="checkbox" name="" id="check_all" class="form-check-input"></th>
+	                <th>번호</th>
+	                <th>1차유형</th>
+	                <th>2차유형</th>
+	                <th>제목</th>
+	                <th>작성자</th>
+	                <th>작성일</th>
+	                <th>상태</th>
+                </tr>
+              </thead>
+              <tbody>
+              
+                <tr th:each="qna : ${list}">
+                  <td>
+                    <input type="checkbox" name="" th:value="${qna.no}" th:data-no="|${qna.no}|" class="form-check-input check_no">
+                  </td>
+                  <td th:text="${totalCount} - ${qnaStat.index} - (${currentPage} - 1) * 10">75</td>
+                  <td th:text="${qna.c1Name}">이벤트당첨</td>
+                  <td th:text="${qna.c2Name}">이벤트당첨</td>
+                  <td class="text-start w-50"><a th:href="@{/admin/cs/qna/view(no=${qna.no}, pageNum=${currentPage}, cate1=${cate1}, cate2=${cate2})}" th:text="${qna.title}">테스트 이벤트 당첨 테스트 이벤트 당첨 테스트 이벤트 당첨</a></td>
+                  <td th:text="${qna.uid}">userid</td>
+                  <td th:text="${#dates.format(qna.rdate, 'yy-MM-dd')}">22-12-30</td>
+                  <td class="qna_stat" th:text="${qna.status}">0</td>
+                </tr>
+
+              </tbody>
+            </table>
+            <div>
+              <button type="button" id="btn_check_delete" class="btn btn-secondary">선택삭제</button>
+            </div>
+            <div id="paging_nav">
+				<nav th:if="${pageInfo.totalPages gt 1}">
+				  <ul class="pagination justify-content-center">
+				  
+				    <li th:if="${pageInfo.startPages gt 1}">
+				      <a class="page-link" th:href="@{/admin/cs/qna/list(pageNum=${pageInfo.startPages}-1, cate1=${cate1}, cate2=${cate2})}" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    
+				    <li class="page-item" th:each="page : ${#numbers.sequence(pageInfo.startPages, pageInfo.endPages)}" th:class="${currentPage eq page} ? active">
+				    	<a class="page-link" th:href="@{/admin/cs/qna/list(pageNum=${page}, cate1=${cate1}, cate2=${cate2})}" th:text="${page}"></a>
+				    </li>
+				    <li class="page-item" th:if="${pageInfo.endPages lt totalPages}">
+				      <a class="page-link" th:href="@{/admin/cs/qna/list(pageNum=${pageInfo.endPages}+1, cate1=${cate1})}" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+			</div>
+          </div>
+        </div>
+      </div>
+    </main>
+<th:block th:include="@{admin/_footer.html}"/>

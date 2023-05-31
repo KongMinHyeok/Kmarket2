@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	날짜 : 2023/02/23
+	이름 : 김지홍 
+	내용 : my mybatis
+ -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kmarket2.dao.MyDAO">
+	<!-- 포인트 -->
+	<select id="selectMemberPointByUid" resultType="int">
+		SELECT point FROM km_member WHERE uid = #{uid};
+	</select>
+	<!-- 주문배송-->
+	<select id="countDeliveryByUid" resultType="int">
+		SELECT COUNT(ordNo) AS cntDeStat FROM km_product_order WHERE ordUid=#{uid} AND deliveryStatus != 3;
+	</select>
+	<!-- 쿠폰 -->
+	<select id="countCouponByUid" resultType="int">
+		SELECT COUNT(*) AS couponStat FROM km_member_coupon WHERE uid= #{uid} AND `status` = 1;
+	</select>
+	<!-- 문의내역 -->
+    <select id="countQnaStatByUid" resultType="int">
+    	SELECT COUNT(*) AS qnaStat FROM km_cs_qna WHERE uid=#{uid} AND `status`=0;
+    </select>
+    
+    <!-- 주문 리스트-->
+    <select id="selectOrderByUid" resultType="kr.co.kmarket2.vo.ProductOrderVO">
+		SELECT a.ordDate, c.thumb1, c.company, c.prodName, a.ordCount, a.ordNo, a.ordTotPrice, a.deliveryStatus , a.revNo
+		FROM km_product_order AS a
+		JOIN km_product_order_item AS b
+			ON a.ordNo = b.ordNo
+		JOIN km_product AS c 
+			ON b.prodNo = c.prodNo
+		LEFT OUTER JOIN km_product_review AS d 
+			ON a.revNo = d.revNo
+    	 WHERE ordUid = #{uid}
+    	 ORDER BY (ordDate) DESC LIMIT 5;    	 
+    </select>
+    <!-- 포인트 리스트 -->
+    <select id="selectPointByUid" resultType="kr.co.kmarket2.vo.MemberPointVO">
+    	SELECT * FROM km_member_point WHERE uid = #{uid} AND pointStat = 0 ORDER BY (rdate) DESC LIMIT 5;
+    </select>
+    <!-- 상품평 리스트 -->
+    <select id="selectReviewByUid" resultType="kr.co.kmarket2.vo.ProductReviewVO">
+    	SELECT a.*, b.prodName 
+    	FROM km_product_review AS a 
+    	JOIN km_product AS b
+    		ON a.prodNo = b.prodNo
+    	WHERE uid = #{uid} 
+    	ORDER BY (rdate) DESC 
+    	LIMIT 5;
+    </select>
+    <!-- 문의 리스트 -->
+    <select id="selectQnaByUid" resultType="kr.co.kmarket2.vo.CsQnaVO">
+    	SELECT * 
+    	FROM km_cs_qna AS a
+		JOIN km_cs_cate1 AS b
+		ON a.cate1 = b.cate1 
+    	WHERE uid = #{uid} ORDER BY (rdate) DESC LIMIT 5;
+    </select>
+    <!-- 나의 정보 -->
+    <select id="selectMemberInfoByUid" resultType="kr.co.kmarket2.vo.MemberVO">
+    	SELECT addr1, addr2, email, hp, rdate FROM km_member WHERE uid = #{uid};
+    </select>
+    <!-- 전체주문내역 - 기간별 조회 Month 지정-->
+    <select id="selectOrderByUidForPeriod" resultType="kr.co.kmarket2.vo.ProductOrderVO">
+		SELECT a.ordDate, c.thumb1, c.company, c.prodName, a.ordCount, a.ordNo, a.ordTotPrice, a.deliveryStatus 
+			FROM km_product_order AS a
+			JOIN km_product_order_item AS b
+				ON a.ordNo = b.ordNo
+			JOIN km_product AS c 
+				ON b.prodNo = c.prodNo
+			WHERE ordUid = #{uid}
+				AND ordDate BETWEEN DATE_SUB(NOW(), INTERVAL #{periodNum} ${period}) AND NOW()
+			ORDER BY ordDate DESC;
+    </select>
+    <!-- 전체주문내역 - 기간별 조회 날짜지정 -->
+    <select id="selectOrderByUidBetween" resultType="kr.co.kmarket2.vo.ProductOrderVO">
+		SELECT a.ordDate, c.thumb1, c.company, c.prodName, a.ordCount, a.ordNo, a.ordTotPrice, a.deliveryStatus 
+		FROM km_product_order AS a
+		JOIN km_product_order_item AS b
+			ON a.ordNo = b.ordNo
+		JOIN km_product AS c 
+			ON b.prodNo = c.prodNo
+		WHERE ordUid = #{uid}
+			AND ordDate BETWEEN #{startDate} AND #{endDate} 
+		ORDER BY ordDate DESC;
+    </select>
+    <!-- 포인트내역 - 기간별 조회 날짜지정 -->
+    <select id="selectPointByUidForPeriod" resultType="kr.co.kmarket2.vo.MemberPointVO">
+		SELECT *
+		FROM km_member_point
+		WHERE uid = #{uid}
+			AND ordDate BETWEEN DATE_SUB(NOW(), INTERVAL #{periodNum} ${period}) AND NOW()
+		ORDER BY pointDate DESC;
+    </select>
+    <!-- 포인트내역 - 기간별 조회 Month 지정 -->
+    <select id="selectPointByUidBetween" resultType="kr.co.kmarket2.vo.MemberPointVO">
+		SELECT *
+		FROM km_member_point
+		WHERE uid = #{uid}
+			AND ordDate BETWEEN #{startDate} AND #{endDate}
+		ORDER BY pointDate DESC;
+    </select>
+    <!-- 쿠폰내역 ??-->
+    <select id="selectCouponByUid" resultType="kr.co.kmarket2.vo.CouponVO">
+    	SELECT * 
+    	FROM km_coupon AS a 
+    	JOIN km_member_coupon AS b  
+    	ON a.id = b.id 
+    	WHERE uid = #{uid};
+    </select>
+    <!-- 쿠폰 보유 개수 -->
+    <select id="countCouponAllByUid" resultType="int">
+    	SELECT COUNT(*) FROM km_member_coupon WHERE uid = #{uid};
+    </select>
+    <!-- 나의리뷰 -->
+    <select id="selectReviewListByUid" resultType="kr.co.kmarket2.vo.ProductReviewVO">
+    	SELECT a.*, b.prodName 
+    	FROM km_product_review AS a 
+    	JOIN km_product AS b 
+    	ON a.prodNo = b.prodNo 
+    	WHERE a.uid = #{uid};
+    </select>
+    <!-- 문의내역 전체 -->
+    <select id="selectQnaALLByUid" resultType="kr.co.kmarket2.vo.CsQnaVO">
+    	SELECT * 
+		FROM km_cs_qna AS a
+		JOIN km_cs_cate1 AS b
+		ON a.cate1 = b.cate1
+		WHERE uid = #{uid} 
+		ORDER BY (rdate) DESC;
+    </select>
+</mapper>

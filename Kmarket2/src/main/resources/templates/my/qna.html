@@ -1,0 +1,41 @@
+<th:block th:include="@{my/_header.html}"/>
+      <main id="qna">
+		<th:block th:include="@{my/_aside.html}"/>
+        <!-- section -->
+        <section>
+          <div id="banner">
+            <a href="" id="my_banner2"></a>
+          </div>
+          <div id="my_qna_list">
+            <h3>문의내역</h3>
+            <table>
+              <thead class="text-center">
+                <tr>
+                  <th>번호</th>
+                  <th>문의채널</th>
+                  <th>문의유형</th>
+                  <th>제목</th>
+                  <th>작성일</th>
+                  <th>상태</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="el : ${qnaList}">
+                  <td th:text="${elStat.size - elStat.index}">5</td>
+                  <td th:if="${el.seller} == null">고객센터</td>
+                  <td th:if="${el.seller} != null">판매자 게시판</td>
+                  <td th:text="${el.c1Name}">주문/결제</td>
+                  <td th:text="${el.title}">신용카드 결제 중 오류가 난 경우 어떻게 하나요?</td>
+                  <td th:text="${#dates.format(el.rdate, 'yyyy-MM-dd')}">2023-12-12</td>
+                  <td class="qna_stat" th:text="${el.status}">0</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+          
+            
+          </div>
+        </section>
+      </main>
+<th:block th:include="@{my/_footer.html}"/>

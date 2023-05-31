@@ -1,0 +1,45 @@
+<th:block th:include="@{admin/_header.html}"/>
+    <main id="main_admin_qna_list" class="flex-shrink-0">
+      <div class="container d-flex flex-row">
+        <div class="me-4">
+          <th:block th:include="@{admin/_aside.html}"/>
+        </div>
+        <div class="col">
+          <div id="admin_nav" class="row align-items-end border-bottom border-1 border-dark pt-5 mb-4">
+            <div class="col-6 h3 fw-bold">자주묻는질문 보기</div>
+            <div class="col-6 text-end mb-1">
+              <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb d-flex justify-content-end mb-0">
+                  <li class="breadcrumb-item">Home</li>
+                  <li class="breadcrumb-item" aria-current="page">고객센터</li>
+                  <li class="breadcrumb-item fw-bold" aria-current="page">자주묻는질문</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+          <!-- section -->
+          <table class="table align-middle">
+            <tbody>
+              <tr>
+                <th scope="row" class="text-center fw-bold fs-5 w-25 table-light">유 형</th>
+                <td>1차유형 - 2차유형</td>
+              </tr>
+              <tr>
+                <th scope="row" class="text-center fw-bold fs-5 table-light">제 목</th>
+                <td>제목</td>
+              </tr>
+              <tr>
+                <th scope="row" class="text-center fw-bold fs-5 table-light">내 용</th>
+                <td>내용</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-end">
+            <a th:href="@{/admin/cs/faq/delete?no=1}" class="btn btn-secondary btn-lg" role="button">삭제</a>
+			<a th:href="@{/admin/cs/faq/modify?no=1}" class="btn btn-secondary btn-lg" role="button">수정</a>
+			<a th:href="@{/admin/cs/faq/list}" class="btn btn-primary btn-lg" role="button">목록</a>
+          </div>
+        </div>
+      </div>
+    </main>
+<th:block th:include="@{admin/_footer.html}"/>

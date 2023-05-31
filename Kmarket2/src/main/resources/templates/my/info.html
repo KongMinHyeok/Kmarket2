@@ -1,0 +1,79 @@
+<th:block th:include="@{my/_header.html}"/>
+      <main id="info">
+		<th:block th:include="@{my/_aside.html}"/>
+        <!-- section -->
+        <section>
+          <div id="banner">
+            <a href="" id="my_banner2"></a>
+          </div>
+
+          <div id="my_info">
+            <h3>회원정보 설정</h3>
+            <table>
+              <tbody>
+                <tr>
+                  <td>사용자 ID</td>
+                  <td>use****</td>
+                </tr>
+                <tr>
+                  <td>비밀번호</td>
+                  <td><button>비밀번호 수정</button></td>
+                </tr>
+                <tr>
+                  <td>이름</td>
+                  <td>홍*동</td>
+                </tr>
+                <tr>
+                  <td>생년월일</td>
+                  <td>2022년 02월 02일</td>
+                </tr>
+                <tr>
+                  <td>E-mail</td>
+                  <td>
+                    <input type="text" name="" id="email_id">
+                    <span>@</span>
+                    <input type="text" name="" id="email_domain">
+                    <select name="" id="">
+                      <option selected>직접입력</option>
+                      <option value="nate">nate.com</option>
+                      <option value="naver">naver.com</option>
+                      <option value="daum">daum.com</option>
+                      <option value="gmail">gmail.com</option>
+                      <option value="outlook">outlook.com</option>
+                    </select>
+                    <button>수정하기</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>휴대폰</td>
+                  <td>
+                    <input type="text" name="" id="">
+                    <span>-</span>
+                    <input type="text" name="" id="">
+                    <span>-</span>
+                    <input type="text" name="" id="">
+                    <button>수정하기</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>주소</td>
+                  <td>
+                    <input type="text" name="" id=""><button>주소검색</button><br>
+                    <input type="text" name="" id=""><br>
+                    <input type="text" name="" id="">
+                  </td>
+                </tr>
+                <tr>
+                  <td>회원탈퇴</td>
+                  <td><button>탈퇴하기</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <div>
+              <button id="modify_info">수정하기</button>
+            </div>
+          </div>
+         
+        </section>
+      </main>
+<th:block th:include="@{my/_footer.html}"/>

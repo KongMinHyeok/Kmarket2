@@ -1,0 +1,190 @@
+<th:block th:include="@{admin/_header.html}"/>
+	<script>
+		document.addEventListener("DOMContentLoaded", ()=>{
+			calcPoint();
+			cateList();
+		});
+	</script>
+    <main id="main_admin_register" class="flex-shrink-0">
+      <div class="container d-flex flex-row">
+        <div class="me-4">
+         <th:block th:include="@{admin/_aside.html}"/>
+        </div>
+        <div class="col">
+          <div id="admin_nav" class="row align-items-end border-bottom border-1 border-dark pt-5 mb-4">
+            <div class="col-6 h3 fw-bold">상품등록</div>
+            <div class="col-6 text-end mb-1">
+              <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb d-flex justify-content-end mb-0">
+                  <li class="breadcrumb-item">Home</li>
+                  <li class="breadcrumb-item" aria-current="page">상품관리</li>
+                  <li class="breadcrumb-item fw-bold" aria-current="page">상품등록</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+          <div class="h5 fw-bold mb-2">상품분류</div>
+          <div class="bg_describe w-100 p-3 mb-3">기본분류는 반드시 선택하셔야합니다. 하나의 상품에 1개의 분류를 지정합니다.</div>
+          
+          <form method="post" th:action="@{/admin/product/register}" enctype="multipart/form-data">
+          
+            <table class="table mb-4 table-bordered">
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">1차분류</td>
+                <td class="border-end-0">
+                  <select name="prodCate1" id="admin_cate1" class="form-select" required="required">
+                    <option value="" selected>1차 분류 선택</option>
+                    <option value="10">브랜드패션</option>
+                    <option value="11">패션의류/잡화/뷰티</option>
+                    <option value="12">유아동</option>
+                    <option value="13">식품/생필품</option>
+                    <option value="14">홈데코/취미/반려</option>
+                    <option value="15">컴퓨터/디지털/가전</option>
+                    <option value="16">스포츠/건강/렌탈</option>
+                    <option value="17">자동차/공구</option>
+                    <option value="18">여행/도서/티켓/쿠폰</option>
+                  </select>
+                </td>
+              </tr>
+              <tr class="align-middle">
+                <td class="text-center table-light border-start-0">2차분류</td>
+                <td class="border-end-0">
+                  <select name="prodCate2" id="admin_cate2" class="form-select" required="required">
+                    <option value="" selected>2차 분류 선택</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+            <div class="h5 fw-bold mb-2">기본정보</div>
+            <div class="bg_describe w-100 p-3 mb-3">기본정보는 반드시 입력해야 합니다.</div>
+            <table class="table mb-4 table-bordered">
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">상품명</td>
+                <td class="border-end-0"><input type="text" class="form-control w-50" name="prodName" required="required"></td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">기본설명</td>
+                <td class="border-end-0">
+                  상품명 하단에 상품에대한 추가적인 설명이 필요한 경우에 입력
+                  <input type="text" class="form-control w-75" name="descript">
+                </td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">제조사</td>
+                <td class="border-end-0"><input type="text" class="form-control w-25" name="company" required="required"></td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0" >판매가격</td>
+                <td class="border-end-0">
+                  <div class="input-group w-25">
+                    <input type="text" class="form-control rounded-end" name="price" id="admin_price" required="required">
+                    <span class="input-group-text bg-white border-white">원</span>
+                  </div>
+                </td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">할인율</td>
+                <td class="border-end-0">
+                  <span>0을 입력하면 할인율 없음</span>
+                  <div class="input-group w-25">
+                  <input type="text" class="form-control rounded-end" name="discount" required="required"> 
+                  <span class="input-group-text bg-white border-white">%</span>
+                </div></td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">포인트</td>
+                <td class="border-end-0">
+                  <span>0을 입력하면 포인트 없음</span>
+                  <div class="input-group w-25">
+                    <input type="text" class="form-control rounded-end" name="point" id="admin_point" required="required">
+                    <span class="input-group-text bg-white border-white">점</span>
+                  </div></td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">재고수량</td>
+                <td class="border-end-0">                
+                  <div class="input-group w-25">
+                    <input type="text" class="form-control rounded-end" name="stock" required="required">
+                    <span class="input-group-text bg-white border-white">개</span>
+                  </div></td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">배송비</td>
+                <td class="border-end-0">                
+                  <span>0을 입력하면 배송비 무료</span>
+                  <div class="input-group w-25">
+                    <input type="text" class="form-control rounded-end" name="delivery" required="required">
+                    <span class="input-group-text bg-white border-white">원</span>
+                  </div></td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">상품 썸네일</td>
+                <td class="border-end-0">
+                  <span>크기 190 x 190, 상품 목록에 출력될 이미지 입니다.</span>
+                  <input type="file" class="form-control w-50 mb-3" name="thumb1" required="required">
+                  <span>크기 230 x 230, 상품 목록에 출력될 이미지 입니다.</span>
+                  <input type="file" class="form-control w-50 mb-3" name="thumb2" required="required">
+                  <span>크기 456 x 456, 상품 목록에 출력될 이미지 입니다.</span>
+                  <input type="file" class="form-control w-50" name="thumb3" required="required">
+                </td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">상세 상품정보</td>
+                <td class="border-end-0">
+                  <span>크기 가로 940px 높이 제약없음, 크기 최대 1MB, 상세페이지 상품정보에 출력될 이미지 입니다.</span>
+                  <input type="file" class="form-control w-50" name="detail" required="required">
+                </td>
+              </tr>
+            </table>
+            <div class="h5 fw-bold mb-2">상품정보 제공고시</div>
+            <div class="bg_describe w-100 p-3 mb-3">[전자상거래에 관한 상품정보 제공에 관한 고시] 항목에 의거 등록해야 되는 정보입니다.]</div>
+            <table class="table mb-4 table-bordered">
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">판매자</td>
+                <td class="border-end-0">
+                  <input type="text" class="form-control w-25" name="seller" required="required">
+                </td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">상품상태</td>
+                <td class="border-end-0">
+                  <input type="text" class="form-control w-25" value="새상품" name="status" required="required">
+                </td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">부가세 면세여부</td>
+                <td class="border-end-0">
+                  <input type="text" class="form-control w-25" value="과세상품" name="duty" required="required">
+                </td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">영수증발행</td>
+                <td class="border-end-0">
+                  <input type="text" class="form-control w-50" value="발행가능 - 신용카드 전표, 온라인 현금 영수증" name="receipt" required="required">
+                </td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">사업자구분</td>
+                <td class="border-end-0">
+                  <input type="text" class="form-control w-25" value="사업자 판매자" name="bizType" required="required">
+                </td>
+              </tr>
+              <tr class="align-middle">
+                <td class="w-25 text-center table-light border-start-0">원산지</td>
+                <td class="border-end-0">
+                  <input type="text" class="form-control w-25" value="국내산" name="origin" required="required">
+                </td>
+              </tr>
+            </table>
+            <div class="text-end">
+              <button type="submit" class="btn btn-light btn-lg border">등록하기</button>
+            </div>
+          </form>
+          <div class="py-4 text-center my-5 h6" id="admin_register_alert">
+            <img th:src="@{/img/admin/admin_ico_alert.png}" alt="">
+            Warning! 전자상거래 등에서의 상품 등의 정보제공에 관한 고시에 따라 총 35개 상품군에 대해 상품 특성 등을 양식에 따라 입력할 수 있습니다.
+          </div>
+        </div>
+      </div>
+    </main>
+<th:block th:include="@{admin/_footer.html}"/>

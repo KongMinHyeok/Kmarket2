@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      
+<th:block th:include="@{cs/_header.html}"/>
+
+      <section id="cs">
+        <div class="notice">
+          <nav>
+            <div>
+              <p>홈<span>></span>공지사항</p>
+            </div>
+          </nav>
+          <section class="view">
+            <aside>
+              <h2>공지사항</h2>
+              <ul>
+                <li th:classappend="${cate1} eq null?'on':'off'"><a th:href="@{/cs/notice/list?group=notice}">전체</a></li>
+                <li th:classappend="${cate1} eq 8 ?'on':'off'"><a th:href="@{/cs/notice/list?group=notice&cate1=8}">고객서비스</a></li>
+                <li th:classappend="${cate1} eq 9 ?'on':'off'"><a th:href="@{/cs/notice/list?group=notice&cate1=9}">안전거래</a></li>
+                <li th:classappend="${cate1} eq 10 ?'on':'off'"><a th:href="@{/cs/notice/list?group=notice&cate1=10}">위해상품</a></li>
+                <li th:classappend="${cate1} eq 11 ?'on':'off'"><a th:href="@{/cs/notice/list?group=notice&cate1=11}">이벤트당첨</a></li>
+              </ul>
+            </aside>
+            <article>
+              <nav>
+                <h2 class="title">[[${article.title}]]</h2>
+                <span class="date">[[${article.rdate}]]</span>
+              </nav>
+
+              <div class="content">
+                <p>
+					[[${article.content}]]
+                </p>
+                <p>
+                  ※ 피싱 관련 피해신고<br /><br />
+                  ▶ 경찰청 사이버수사국 (국번없이)182 :
+                  <a href="http://cyberbureau.police.go.kr">http://cyberbureau.police.go.kr</a> <br />
+                  ▶ KISA 인터넷침해대응센터 (국번없이)118 :
+                  <a href="http://www.krcert.or.kr">http://www.krcert.or.kr</a><br />
+                  감사합니다.<br />
+                </p>
+              </div>
+              <a th:href="@{/cs/notice/list(group=notice,cate1=${cate1},pg=${pg})}" class="btnList">목록보기</a>
+            </article>  
+          </section>
+        </div>
+      </section>
+<th:block th:include="@{cs/_footer.html}"/>
+
+</html>

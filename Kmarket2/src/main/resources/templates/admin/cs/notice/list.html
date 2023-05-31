@@ -1,0 +1,99 @@
+<th:block th:include="@{admin/_header.html}"/>
+	<script>
+		document.addEventListener("DOMContentLoaded", ()=>{
+			adminDeleteNotice();
+			getAdminCate1Notice();
+			setAdminCate();
+		});
+	</script>
+    <main id="main_admin_qna_list" class="flex-shrink-0">
+      <div class="container d-flex flex-row">
+        <div class="me-4">
+         <th:block th:include="@{admin/_aside.html}"/>
+        </div>
+        <div class="col">
+          <div id="admin_nav" class="row align-items-end border-bottom border-1 border-dark pt-5 mb-4">
+            <div class="col-6 h3 fw-bold">공지사항 목록</div>
+            <div class="col-6 text-end mb-1">
+              <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb d-flex justify-content-end mb-0">
+                  <li class="breadcrumb-item">Home</li>
+                  <li class="breadcrumb-item" aria-current="page">고객센터</li>
+                  <li class="breadcrumb-item fw-bold" aria-current="page">공지사항</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+          <div>
+            <select name="" id="admin_cs_cate1" class="form-select mb-2">
+              <option value="0"  selected>1차 유형</option>
+              <option value="8" th:selected="${cate1}==8">고객서비스</option>
+              <option value="9" th:selected="${cate1}==9">안전거래</option>
+              <option value="10" th:selected="${cate1}==10">위해상품</option>
+              <option value="11" th:selected="${cate1}==11">이벤트당첨</option>
+            </select>
+            <table class="table border-top text-center align-middle" id="admin_cs_table">
+              <thead class="table-light align-middle">
+                <th><input type="checkbox" name="admin_check" id="" class="form-check-input"></th>
+                <th>번호</th>
+                <th>유형</th>
+                <th>제목</th>
+                <th>조회</th>
+                <th>날짜</th>
+                <th>관리</th>
+              </thead>
+              <tbody>
+                <tr th:each="notice : ${noticeList}">
+                  <td>
+                    <input type="checkbox" name="" id="" class="form-check-input">
+                  </td>
+                  <td th:text="${totalPosts - (noticeStat.index + (currentPage-1) * 10)}">75</td>
+                  <td th:text="${notice.cate1Entity.c1Name}">이벤트당첨</td>
+                  <td class="text-start ellipsis"><span><a th:href="@{/admin/cs/notice/view(cate1=${cate1}, pageNum=${currentPage}, no=${notice.no})}" th:text="${notice.title}">테스트 이벤트 당첨 테스트</a></span></td>
+                  <td th:text="${notice.hit}">1000</td>
+                  <td th:text="${#dates.format(notice.rdate, 'yy-MM-dd')}">22-12-30</td>
+                  <td>
+                    <a th:href="@{/admin/cs/notice/delete(no = ${notice.no})}" class="btnDeleteNotice" th:id="${notice.no}">[삭제]</a>
+                    <a th:href="@{/admin/cs/notice/modify(cate1 = ${cate1}, pageNum = ${currentPage}, no = ${notice.no})}">[수정]</a>
+                  </td>
+                </tr>
+               
+              </tbody>
+            </table>
+
+            <div class="d-flex justify-content-between">
+              <div>
+                <button type="button" class="btn btn-secondary">선택삭제</button>
+              </div>
+              <div>
+                <a class="btn btn-primary" th:href="@{/admin/cs/notice/write(cate1 = ${cate1}, pageNum = ${currentPage})}" role="button">작성하기</a>
+              </div>
+            </div>
+            
+			<div id="paging_nav">
+			<nav th:if="${totalPages gt 1}">
+			  <ul class="pagination justify-content-center">
+			  
+			    <li th:if="${startPages gt 1}">
+			      <a class="page-link" th:href="@{/admin/cs/notice/list(pageNum=${startPages}-1, cate1=${cate1})}" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    
+			    <li class="page-item" th:each="page : ${#numbers.sequence(startPages,endPages)}" th:class="${currentPage eq page} ? active">
+			    	<a class="page-link" th:href="@{/admin/cs/notice/list(pageNum=${page}, cate1=${cate1})}" th:text="${page}"></a>
+			    </li>
+			    <li class="page-item" th:if="${endPages lt totalPages}">
+			      <a class="page-link" th:href="@{/admin/cs/notice/list(pageNum=${endPages}+1, cate1=${cate1})}" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+			</div>
+            
+          </div>
+        </div>
+      </div>
+    </main>
+<th:block th:include="@{admin/_footer.html}"/>

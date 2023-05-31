@@ -1,0 +1,67 @@
+<th:block th:include="@{admin/_header.html}"/>
+	<script>
+		document.addEventListener("DOMContentLoaded", ()=>{
+			adminDeleteQna();
+		});
+	</script>
+    <main id="main_admin_qna_list" class="flex-shrink-0">
+      <div class="container d-flex flex-row">
+        <div class="me-4">
+          <th:block th:include="@{admin/_aside.html}"/>	          
+        </div>
+        <div class="col">
+          <div id="admin_nav" class="row align-items-end border-bottom border-1 border-dark pt-5 mb-4">
+            <div class="col-6 h3 fw-bold">문의하기 답변</div>
+            <div class="col-6 text-end mb-1">
+              <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                <ol class="breadcrumb d-flex justify-content-end mb-0">
+                  <li class="breadcrumb-item">Home</li>
+                  <li class="breadcrumb-item" aria-current="page">고객센터</li>
+                  <li class="breadcrumb-item fw-bold" aria-current="page">문의하기</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+          <!-- section -->
+          <form th:action="@{/admin/cs/qna/modify}" method="post">
+          	<input type="hidden" name="no" th:value="${qna.no}">
+          	<input type="hidden" name="cate1" th:value="${cate1}">
+          	<input type="hidden" name="cate2" th:value="${cate2}">
+          	<input type="hidden" name="pageNum" th:value="${currentPage}">
+            <table class="table align-middle">
+              <tbody>
+                <tr>
+                  <th scope="row" class="text-center fw-bold fs-5 w-25 table-light">유 형</th>
+                  <td>[[${qna.c1Name}]] - [[${qna.c2Name}]]</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="text-center fw-bold fs-5 table-light">제 목</th>
+                  <td th:text="${qna.title}">제목</td>
+                </tr>
+                <tr>
+                  <th scope="row" class="text-center fw-bold fs-5 table-light">내 용</th>
+                  <td th:text="${qna.content}">내용</td>
+                </tr>
+                <tr>
+                  <td scope="row" class="text-center fw-bold fs-5 table-light">답 변</td>
+                  <th:block th:if="${qna.answer} == null">
+	                  <td>
+    	                <textarea name="answer" id="tt" cols="30" rows="10" class="form-control"></textarea>
+        	          </td>
+                  </th:block>
+                  <th:block th:if="${qna.answer} != null">
+	                  <td th:text="${qna.answer}">내용</td>
+                  </th:block>
+                </tr>
+              </tbody>
+            </table>
+            <div class="text-end">
+              <a th:href="@{/admin/cs/qna/delete(no=${qna.no})}" th:id="${qna.no}" class="btn btn-secondary btn-lg btnDeleteQna" role="button">삭제</a>
+              <button type="submit" class="btn btn-success btn-lg" th:disabled="${qna.answer != null}">답변등록</button>
+              <a th:href="@{/admin/cs/qna/list(pageNum=${currentPage}, cate1=${cate1}, cate2=${cate2})}" class="btn btn-primary btn-lg" role="button">목록</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+<th:block th:include="@{admin/_footer.html}"/>

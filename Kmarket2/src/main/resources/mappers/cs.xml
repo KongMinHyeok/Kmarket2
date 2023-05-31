@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.kmarket2.dao.CsDAO">
+	
+	<select id="selectIndexNotice" resultType="kr.co.kmarket2.vo.CsNoticeVO">
+		select * from `km_cs_notice`
+		order by `no` desc
+		limit 0, 5;
+	</select>
+	
+	<select id="selectIndexQna" resultType="kr.co.kmarket2.vo.CsQnaVO">
+		select a.*, b.c1Name from `km_cs_qna` as a
+		join `km_cs_cate1` as b on a.cate1 = b.cate1
+		order by `no` desc
+		limit 0, 5;
+	</select>
+	
+	<select id="selectNotices" resultType="kr.co.kmarket2.vo.CsNoticeVO">
+		select * from `km_cs_notice`
+		 order by `no` desc
+		 limit #{start}, 10;
+	</select>
+	
+	<select id="selectNoticesCate" resultType="kr.co.kmarket2.vo.CsNoticeVO">
+		select * from `km_cs_notice`
+		where `cate1`= #{cate1}
+		order by `no` desc
+		limit #{start}, 10;
+	</select>
+	
+	<select id="selectCountNotices" resultType="int">
+		select count(`no`) from `km_cs_notice`;
+	</select>
+	
+	<select id="selectCountNotice" resultType="int">
+		select count(`no`) from `km_cs_notice` where `cate1`=#{cate1};
+	</select>
+	
+	<select id="selectNotice" resultType="kr.co.kmarket2.vo.CsNoticeVO">
+		select * from `km_cs_notice` where `no`=#{no}; 
+	</select>
+
+	<select id="selectFaqs" resultType="kr.co.kmarket2.vo.CsFaqVO">
+		select a.*, b.c1Name, c.c2Name from `km_cs_faq` as a
+		join `km_cs_cate1` as b on a.cate1 = b.cate1
+		join `km_cs_cate2` as c on a.cate2 = c.cate2 and a.cate1 = c.cate1
+		where a.`cate1`=#{cate1}
+		order by `no` desc;
+	</select>
+	
+	<select id="selectFaqCate" resultType="kr.co.kmarket2.vo.Cate2VO">
+		select * from `km_cs_cate2` where `cate1`=#{cate1};
+	</select>
+	
+	<select id="selectFaq" resultType="kr.co.kmarket2.vo.CsFaqVO">
+		select * from `km_cs_faq` where `no`=#{no};
+	</select>
+	
+	<select id="selectQnas" resultType="kr.co.kmarket2.vo.CsQnaVO">
+		select a.*, b.c1Name, c.c2Name from `km_cs_qna` as a
+		join `km_cs_cate1` as b on a.cate1 = b.cate1
+		join `km_cs_cate2` as c on a.cate2 = c.cate2 and a.cate1 = c.cate1
+		where a.`cate1`=#{cate1}
+		order by `no` desc
+		limit #{start}, 10;
+	</select>
+	
+	<select id="selectCountQnas" resultType="int">
+		select count(`no`) from `km_cs_qna` where `cate1`=#{cate1};
+	</select>
+
+	<select id="selectQna" resultType="kr.co.kmarket2.vo.CsQnaVO">
+		select a.*, b.c2Name from `km_cs_qna` as a
+		join `km_cs_cate2` as b on a.cate1 = b.cate1
+		and a.cate2 = b.cate2
+		where a.`no`=#{no};
+	</select>
+	
+	<insert id="insertQna" useGeneratedKeys="true" keyProperty="no">
+		insert into `km_cs_qna` set
+			`cate1`=#{cate1},
+			`cate2`=#{cate2},
+			`uid`=#{uid},
+			`title`=#{title},
+			`content`=#{content},
+			`regip`=#{regip},
+			`rdate`= NOW();
+	</insert>
+	
+	<select id="selectCate1" resultType="kr.co.kmarket2.vo.Cate1VO">
+		select distinct `c1Name`, a.`cate1` from `km_cs_cate1` AS a
+		join `km_cs_cate2` as b on a.cate1 = b.cate1 ;
+	</select>
+	<select id="selectCate2" resultType="kr.co.kmarket2.vo.Cate2VO">
+		select * from `km_cs_cate2` where cate1=#{cate1};  
+	</select>
+
+</mapper>

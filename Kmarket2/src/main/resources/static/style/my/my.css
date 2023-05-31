@@ -1,0 +1,687 @@
+*{
+    margin: 0;
+    padding: 0;
+    font: normal 12px "Noto Sans CJK KR";
+    box-sizing: border-box;
+}
+ul,ol{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+a:visited {
+    color : black;
+}
+strong{
+    font-weight: bold;
+}
+
+#wrapper{
+    width: 100%;
+}
+#wrapper > header{
+    width: 100%;
+    height: auto;
+}
+
+/* top */
+#wrapper > header > #top{
+    width: 100%;
+    height: 35px;
+    text-align: right;
+    border-bottom: 1px solid #e9e9e9;
+}
+#wrapper > header > #top > div{
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    line-height: 35px;
+    text-align: right;
+}
+#wrapper > header > #top > div > a{
+    display: inline-block;
+    padding: 0 10px;
+    height: 100%;
+    color: #646464;
+    text-align: center;
+    line-height: 35px;
+    border-left: 1px solid #e9e9e9;
+}
+#wrapper > header > #top > div > a:hover{
+    color: #333;
+    border-bottom:1px solid #444;
+}
+#wrapper > header > #top > div > a:last-child{
+    border-right: 1px solid #e9e9e9;
+}
+
+/* logo */
+#wrapper > header > #logo{
+    width: 100%;
+    height: 115px;
+}
+#wrapper > header > #logo{
+    position: relative;
+}
+#wrapper > header > #logo > div > a {
+    display: inline-block;
+    margin-top: 30px;
+}
+#wrapper > header > #logo > div > form {
+    position: relative;
+    display: inline-block;
+}
+#wrapper > header > #logo > div > form > input{
+    position: absolute;
+    width: 450px;
+    height: 40px;
+    left: 220px;
+    bottom: 0;
+    border: 1px solid #e9e9e9;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+#wrapper > header > #logo > div > form > button{
+    position: absolute;
+    border: none;
+    background: none;
+    left: 645px;
+    bottom: 10px;
+}
+#wrapper > header > #logo > div > form > button > i{
+    font-size: 18px;
+}
+#wrapper > header > #logo > div{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* my_k */
+#wrapper > header > #my_k{
+    width: 100%;
+    height: auto;
+    background-color: #e8e8e8;
+    border-bottom: 1px solid #c9c9c9;
+    border-top: 1px solid #c9c9c9;
+}
+#wrapper > header > #my_k > div{
+    width: 980px;
+    height: 119px;
+    margin: 0 auto;
+}
+#wrapper > header > #my_k > div{
+    
+    padding-top: 15px;
+}
+#wrapper > header > #my_k > div #my_logo{
+    margin-top: 15px;
+}
+#wrapper > header > #my_k > div > ol{
+    float:right;
+    right: 0;
+    bottom: 0;
+    
+}
+
+#wrapper > header > #my_k > div ol > li {
+    display: block;
+    float:left;
+    border-right: 1px solid #c5c5c5;
+    border-left: 1px solid #fff;
+    height: 80px;
+    width: 100px;
+    text-align: center;
+}
+#wrapper > header > #my_k > div ol > li:nth-child(1){
+    background: url(/kmarket2/img/my/ico_delivery.png);
+    background-repeat: no-repeat;
+    background-position: center 30px;
+    border-left: none;
+}
+#wrapper > header > #my_k > div ol > li:nth-child(2){
+    background: url(/kmarket2/img/my/ico_coupon.jpg);
+    background-repeat: no-repeat;
+    background-position: center 25px;
+}
+#wrapper > header > #my_k > div ol > li:nth-child(3){
+    background: url(/kmarket2/img/my/ico_point.jpg);
+    background-repeat: no-repeat;
+    background-position: center 25px;
+}
+#wrapper > header > #my_k > div ol > li:nth-child(4){
+    background: url(/kmarket2/img/my/ico_qna.png);
+    background-repeat: no-repeat;
+    background-position: center 25px;
+    border-right: none;
+}
+#wrapper > header > #my_k > div ol > li > a{
+    display: block;
+    height: 100%;
+    color: #888;
+}
+#wrapper > header > #my_k > div ol > li > a > span{
+	display: block;
+    margin-top: 45px;
+}
+
+
+/* aside */
+#wrapper aside{
+    position: relative;
+    width: 148px;
+    height: auto;
+}
+
+#wrapper aside > #piece {
+    display: block;
+    position: absolute;
+    width: 8px;
+    height: 12px;
+    right: -9px;
+    top: -12px;
+    background: url(/kmarket2/img/my/my_sprites.png);
+    background-position: -160px -50px;
+}
+#wrapper aside > ul{
+    position: absolute;
+    border: 1px solid #003262;
+    top: -12px;
+}
+#wrapper aside > ul > li{
+    height: 60px;
+    width: 148px;
+    border-top: 1px solid #2681ff;
+    border-bottom: 1px solid #0056cd;
+    background: #006bff;
+    line-height: 60px;
+    padding-left: 15px;
+}
+#wrapper aside > ul > li.on,
+#wrapper aside > ul > li:hover{
+    background-color: #075acc;
+    border-top: 1px solid #054cbc;
+}
+#wrapper aside > ul > li > a{
+    display: block;
+    color: white;
+    font-size: 16px;
+    /* line-height: 60px; */
+    line-height: 48px;
+    
+}
+
+/* main common */
+#wrapper > main {
+    width: 980px;
+    height: auto;
+    margin: 0 auto;
+}
+#wrapper > main > section{
+    width: 832px;
+    height: 100%;
+    min-height: 600px;
+    margin-left: 146px;
+    padding: 10px;
+}
+#wrapper > main > section > div{
+    margin-bottom: 20px;
+}
+#wrapper > main > section > #banner > a {
+    display: block;
+    width: 810px;
+    height: 110px;
+    object-fit: none;
+}
+#wrapper > main > section > #banner > #my_banner1{
+    height: 90px;
+    background: url(/kmarket2/img/my/my_banner1.jpg);
+}
+#wrapper > main > section > #banner > #my_banner2{
+    background: url(/kmarket2/img/my/my_banner2.png);
+}
+
+#wrapper > main > section > div > h3{
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#wrapper > main > section > div .more{
+    position: absolute;
+    right: 0;
+    top: 10px;
+    display: block;
+    float: right;
+    width: 40px;
+    height: 18px;
+    background: url(/kmarket2/img/my/my_sprites.png) 0px -275px;
+}
+#wrapper > main > section > div > table{
+    width: 100%;
+    border-top: 2px solid black;
+    border-spacing: 0;
+}
+#wrapper > main > section > div > table th{
+    line-height: 26px;
+    background: #a5a7a5;
+    color: #fff;
+}
+#wrapper > main > section > div > table td{
+    padding: 10px;
+    border-right: 1px solid #f1f1f1;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+#wrapper > main > section > #my_recent_order > table td:nth-child(3){
+	width: 250px;
+    text-align: left;
+}
+
+#wrapper > main > section > div > table .orderImg{
+	width: 80px;
+	height: 80px;
+    object-fit: cover;
+}
+
+#wrapper > main > section > #my_review_list .star{
+    display: block;
+    width: 90px;
+    height: 18px;
+    margin: 0 auto;
+    background: url(/kmarket2/img/my/my_rating_star.png);
+}
+#wrapper > main > section > #my_review_list .star1{background-position: 0px -40px;}
+#wrapper > main > section > #my_review_list .star2{background-position: 0px -80px;}
+#wrapper > main > section > #my_review_list .star3{background-position: 0px -120px;}
+#wrapper > main > section > #my_review_list .star4{background-position: 0px -160px;}
+#wrapper > main > section > #my_review_list .star5{background-position: 0px -200px;}
+#wrapper > main > section > div > table td:last-child{
+    border-right: none;
+}
+#wrapper > main > section > div > table td > a.my_order_btn{
+    font-family: 돋움;
+    display: block;
+    width: 90px;
+    height: 18px;
+    margin: 2px auto;
+    color: #676767;
+    font-size: 11px;
+    text-align: left;
+    text-indent: 6px;
+    line-height: 20px;
+    letter-spacing: -1px;
+    background: url(/kmarket2/img/my/my_sprites.png);
+}
+#wrapper > main > section > div > table .my_order_btn.my_receive{background-position: -368px -179px;}
+#wrapper > main > section > div > table .my_order_btn.my_review{background-position: -368px -203px;}
+#wrapper > main > section > div > table .my_order_btn.my_return{background-position:  -499px -399px;}
+#wrapper > main > section > div > table .my_order_btn.my_exchange{background-position:  -499px -399px;}
+
+/* footer */
+footer{
+    width: 100%;
+    height: 192px;
+    background: #f8f8f8;
+    border-top: 1px solid #e9e9e9;
+}
+footer > ul {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+    border-bottom: 1px solid #e9e9e9;
+}
+footer > ul > li{
+    display: inline;
+    height: 40px;
+    line-height: 40px;
+    border-right: 1px solid #d7d7d7;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+footer > ul > li:nth-child(1){
+    border-left: 1px solid #d7d7d7;
+}
+footer > #my_footer_info{
+    width: 100%;
+    height: auto;
+    clear: both;
+    display: block;
+    content: '';
+    padding-top: 20px;
+    text-align: center;
+}
+footer > #my_footer_info > div{
+    display: inline-block;
+    width: 350px;
+}
+footer > #my_footer_info > div:nth-child(1){
+vertical-align: top;
+    text-align: center;
+}
+footer > #my_footer_info > div:nth-child(n+2){
+    text-align: left;
+}
+
+/* main - my - home */
+
+
+#wrapper > #home > section > #my_confirm > div:after {
+    clear: both;
+    display: block;
+    content: '';
+}
+#wrapper > #home > section > #my_confirm > span{
+    display: block;
+    width: 98px;
+    height: 20px;
+    margin-bottom: 6px;
+    background: url(/kmarket2/img/my/my_sprites.png);
+    background-position: -144px -280px;
+}
+#wrapper > #home > section > #my_confirm > div{
+    width: 100%;
+    height: auto;
+    background-color: #f5f5f5;
+    border: 1px solid #e5e5e5;
+}
+#wrapper > #home > section > #my_confirm > div > div{
+    float: left;
+    width: 33.3%;
+    height: 104px;
+    padding: 16px;
+    border-left: 1px solid #fdfdfd;
+    border-right: 1px solid #eaeaea;
+}
+#wrapper > #home > section > #my_confirm > div > div:last-child{
+    border-right: none;
+}
+#wrapper > #home > section > #my_confirm > div > div > span,
+#wrapper > #home > section > #my_confirm > div > div > a{
+    display: inline-block;
+    width: 80px;
+    height: 14px;
+    margin-bottom: 10px;
+    margin-right: 30px;
+    background: url(/kmarket2/img/my/my_sprites.png);
+}
+
+#wrapper > #home > section > #my_confirm > div > div > #my_address{background-position: -497px -178px;}
+#wrapper > #home > section > #my_confirm > div > div > #my_email{background-position: -497px -201px;}
+#wrapper > #home > section > #my_confirm > div > div > #my_phone{background-position: -497px -226px;}
+#wrapper > #home > section > #my_confirm > div > div > .my_change{background-position: -420px -821px;}
+
+#wrapper > #home > section > #my_confirm > div > div > p{
+    color: #999;
+}
+
+#wrapper > main > section > div > h3{
+    margin-bottom: 15px;
+}
+#wrapper > main > section > div > #period{
+    width: 100%;
+    height: 70px;
+    margin-bottom: 10px;
+    background-color: #f7f7f7;
+    border: 1px solid #c7c7c7;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#wrapper > main > section > div > #period > div{
+    width: 80px;
+    height: 25px;
+    margin-right: 5px;
+}
+#wrapper > main > section > div > #period > div:nth-child(1){
+    width: 60px;
+    background: url(/kmarket2/img/my/my_sprites.png);
+    background-position: 0 -218px;
+}
+#wrapper > main > section > div > #period > div:nth-child(2){
+    width: 172px;
+    background: url(/kmarket2/img/my/my_sprites.png);
+    background-position: -485px -908px;
+    height: 28px;
+}
+#wrapper > main > section > div > #period > div:nth-child(2) > ul{
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+#wrapper > main > section > div > #period > div:nth-child(2) > ul > li > a{
+    display: block;
+    width: 54px;
+    line-height: 28px;
+    color: #444;
+}
+#wrapper > main > section > div > #period > div:nth-child(3){
+    width: 290px;
+    height: 28px;
+    text-align: center;
+    background: url(/kmarket2/img/my/my_sprites.png);
+    background-position: -377px -937px;
+}
+#wrapper > main > section > div > #period > div:nth-child(3) > ul{
+    display: flex;
+    align-items: center;
+}
+#wrapper > main > section > div > #period > div:nth-child(3) > ul > li > a{
+    display: block;
+    width: 54px;
+    height: 28px;
+    line-height: 28px;
+    color: #444;
+}
+#wrapper > main > section > div > #period > div:nth-child(4){
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 28px;
+    background: url(/kmarket2/img/my/my_sprites.png);
+    background-position: -461px -879px;
+}
+#wrapper > main > section > div > #period > div:nth-child(4) > input{
+    width: 80px;
+    font-size: 12px;
+    font-family: '돋움';
+    border: none;
+    margin: 0 5px;
+}
+#wrapper > main > section > div > #period > div:nth-child(5){
+    width: 75px;
+    height: 28px;
+    background: url(/kmarket2/img/my/my_sprites.png) no-repeat -491px -80px;
+}
+#wrapper > main > section > div > #period > div:nth-child(5) > a{
+    display: block;
+    width: 69px;
+    height: 28px;
+}
+#wrapper > main > section > div > #period > div > ul > li > a:hover,
+#wrapper > main > section > div > #period > div > ul > li > a.on{
+    background: url(/kmarket2/img/my/my_sprites.png);
+    background-position: -377px -908px;
+    color:#fff;
+}
+
+/* page */
+#wrapper > main > section> div > #page{
+    width: 832px;
+    height: auto;
+    margin-top: 20px;
+}
+#wrapper > main > section > div > #page > ul{
+    width: 100%;
+    height: 20px;
+    text-align: center;
+    display: flex;    
+    justify-content: center;
+}
+#wrapper > main > section > div > #page > ul > li{
+    margin-right: 10px;
+}
+#wrapper > main > section > div > #page > ul > li > a{
+    width: 20px;
+    height: 20px;
+    display: block;
+    color: #777;
+}
+#wrapper > main > section > div > #page #prev > a{
+    background: url(/kmarket2/img/my/my_sprites2.png);
+    background-position: 0 -300px;
+    background-repeat: no-repeat;
+    font-size: 0;
+}
+#wrapper > main > section > div > #page #next > a{
+    background: url(/kmarket2/img/my/my_sprites2.png);
+    background-position: -120px -300px;
+    background-repeat: no-repeat;
+    font-size: 0;
+    
+}
+#wrapper > main > section > div > #page .on{
+    font-weight: bold;
+    color: #1179ea;
+}
+
+/* main - ordered */
+#wrapper > main#ordered > section > div > table > tbody > tr > td:nth-child(3){
+    text-align: left;
+}
+/* main - point */
+/* main - coupon */
+#wrapper > #coupon > section > #my_coupon > p{
+    margin: 10px 0;
+    font-family: '돋움';
+    font-size: 11px;
+    color: #888;
+}
+#wrapper > #coupon > section > #my_coupon > #my_coupon_bg{
+    position: relative;
+    width: 100%;
+    height: 209px;
+    background: url(/kmarket2/img/my/my_coupon_bg.gif);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-bottom: 10px;
+}
+#wrapper > #coupon > section > #my_coupon > #my_coupon_bg > #my_coupon_count{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: rgb(103, 103, 103);
+}
+#wrapper > #coupon > section > #my_coupon > #my_coupon_bg > #my_coupon_count > span{
+    color: red;
+    font-weight: bold;
+}
+#wrapper > #coupon > section > #my_coupon > #my_coupon_bg > #my_coupon_count > span:nth-child(1){
+    margin-left: 32px;
+    font-size: 24px;
+    
+}
+#wrapper > #coupon > section > #my_coupon > #my_coupon_bg > #my_coupon_count > span:nth-child(2){
+    margin-left: 4px;
+}
+#wrapper > #coupon > section > #my_coupon > table{
+    border-top: 1px solid black;
+}
+#wrapper > #coupon > section > #my_coupon > table > thead th{
+    background: #f7f7f7;
+    color: #000;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+#wrapper > #coupon > section > #my_coupon > table > thead th:last-child,
+#wrapper > #coupon > section > #my_coupon > table td:last-child{
+    border-right: none;
+}
+#wrapper > #coupon > section > #my_coupon > table td{
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+#wrapper > #coupon > section > #my_coupon > div > ul{
+    margin-left: 15px;
+    margin-top: 10px;
+    list-style: square;
+}
+#wrapper > #coupon > section > #my_coupon > div > ul > li{
+    font-family: '돋움';
+    font-size: 11px;
+    color: rgb(119, 119, 119);
+    line-height: 20px;
+    letter-spacing: -1px;
+}
+/* main - review */
+#wrapper > #review > section > #my_review_list > table tr > td:nth-child(2) > a{
+    text-decoration: underline;
+}
+
+/* main - qna */
+#wrapper > #qna > section > #my_qna_list > table tr > td:nth-child(4){
+    text-align: start;
+}
+#wrapper > #qna > section > #my_qna_list > table tr > td:nth-child(4) > p >  a.prd_name{
+    font-size: 11px;
+    color: #999;
+}
+#wrapper > #qna > section > #my_qna_list > table tr > td:nth-child(4) > *:hover{
+    text-decoration: underline;
+}
+/* main - info */
+#wrapper > #info > section > #my_info > table tr > td{
+    border-bottom: 1px solid #f1f1f1;
+}
+#wrapper > #info > section > #my_info > table tr > td:nth-child(1){
+    width: 140px;
+    text-align: center;
+    background: #f7f7f7;
+}
+#wrapper > #info > section > #my_info > table tr > td:nth-child(2){
+    text-align: start;
+}
+#wrapper > #info > section > #my_info > table tr > td > input, 
+#wrapper > #info > section > #my_info > table tr > td > select,
+#wrapper > #info > section > #my_info > table tr > td > button{
+    padding: 2px;
+}
+#wrapper > #info > section > #my_info > table tr:nth-child(5) > td:nth-child(2) > input#email_domain{
+    width: 100px;
+}
+#wrapper > #info > section > #my_info > table tr:nth-child(6) > td > input{
+    width: 45px;
+}
+#wrapper > #info > section > #my_info > table tr:nth-child(7) > td > input{
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+#wrapper > #info > section > #my_info > table tr:nth-child(7) > td > input:nth-of-type(n+2) {
+    width: 400px;
+}
+#wrapper > #info > section > #my_info > table tr:nth-child(8) > td > button{
+    background: red;
+    color: #fff;
+    border: 1px solid red;
+}
+#wrapper > #info > section > #my_info > table button{
+    cursor: pointer;
+
+}
+#wrapper > #info > section > #my_info > div {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+#wrapper > #info > section > #my_info > div > #modify_info{
+    width: 180px;
+    height: 30px;
+    background: #006bff;
+    border: 1px solid #006bff;
+    color: #fff;
+    cursor: pointer;
+}

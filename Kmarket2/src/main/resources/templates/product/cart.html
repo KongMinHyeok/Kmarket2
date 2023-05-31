@@ -1,0 +1,98 @@
+<th:block th:include="@{product/_header.html}"/>
+    <section class="cart">
+        <!-- 제목, 페이지 네비 -->
+        <nav>
+            <h1>장바구니</h1>
+            <p>
+                HOME > <span>패션·의류·뷰티</span>
+                > <strong>장바구니</strong>
+            </p>
+        </nav>
+        <form action="#">
+            <!-- 장바구니 목록 -->
+            <table>
+            	<thead>
+	                <tr>
+	                  <th><input type="checkbox" name="all" class="allBox"></th>
+	                  <th>상품명</th>
+	                  <th>총수량</th>
+	                  <th>판매가</th>
+	                  <th>할인</th>
+	                  <th>포인트</th>
+	                  <th>배송비</th>
+	                  <th>소계</th>
+	                </tr>
+            	</thead>
+                <th:block th:if="${carts} == null">
+			      <tr class="empty">
+			        <td colspan="7">장바구니에 상품이 없습니다.</td>
+			      </tr>
+			    </th:block>
+			      <tr th:each="cart,i:${carts}">
+			        <td>
+			          <input type="checkbox" name="ck" class="ckBox" th:value="${cart.cartNo}">
+			          <input type="hidden" name="prodNo" th:value="${cart.prodNo}">
+			          <input type="hidden" name="count" th:value="${cart.count}">
+			          <input type="hidden" name="price" th:value="${cart.price}">
+			          <input type="hidden" name="discount" th:value="${cart.discount}">
+			          <input type="hidden" name="delivery" th:value="${cart.delivery}">
+			          <input type="hidden" name="point" th:value="${cart.point}">
+			          <input type="hidden" name="total" th:value="${cart.total}">
+			        </td>
+			        <td>
+			          <article>
+			            <a href="#"><img th:src="@{|/images/${cart.thumb1}|}" alt=""></a>
+			            <div>
+			              <h2><a href="#">[[${cart.prodName}]]</a></h2>
+			              <p>[[${cart.descript}]]</p>
+			            </div>
+			          </article>
+			        </td>
+			        <td>[[${cart.cartNo}]]</td>
+			        <td>[[${cart.price}]]</td>
+			        <td>[[${cart.discount}]]%</td>
+			        <td>[[${cart.point}]]</td>
+			        <td th:if="${cart.delivery} == 0">무료배송</td>
+			        <td th:unless="${cart.delivery} == 0">[[${cart.delivery}]]</td>
+			        <td>[[${cart.price}*(100-${cart.discount}/100)]]원</td>
+			      </tr>
+            </table>
+            <input type="button" name="del" class="delete" value="선택삭제">
+            <!-- 장바구니 전체합계 -->
+            <div class="total">
+              <h2>전체합계</h2>
+              <table border="0">
+                <tr>
+                  <td>상품수</td>
+                  <td id="cartCount">0</td>
+                </tr>
+                <tr>
+                  <td>상품금액</td>
+                  <td id="cartPrice">0</td>
+                </tr>
+                <tr>
+                  <td>할인금액</td>
+                  <td id="cartDiscount">0</td>
+                </tr>
+                <tr>
+                  <td>배송비</td>
+                  <td id="cartDelivery">0</td>
+                </tr>              
+                <tr>
+                  <td>포인트</td>
+                  <td id="cartPoint">0</td>
+                </tr>
+                <tr>
+                  <td>전체주문금액</td>
+                  <td id="cartTotal">0</td>
+                </tr>
+              </table>
+              <input type="submit" name="cartOrder" class="btnOrder" value="주문하기">    
+            </div>
+          </form>
+        </section>
+        <!-- 장바구니 페이지 끝 -->
+    </section>
+</main>
+<th:block th:include="@{product/_footer.html}"/>
+

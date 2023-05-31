@@ -1,0 +1,166 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      
+<th:block th:include="@{cs/_header.html}"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+$(function(){
+	// 문의글 작성 유효성 검사
+	$('.write form').submit(function() {
+		let cate1 = $('select[name=cate1]').val();
+		let cate2 = $('select[name=cate2]').val();
+		let title = $('input[name=title]').val();
+		let content = $('textarea[name=content]').val(); 
+		
+		if(cate1 == 0){
+			alert('카테고리를 선택해주세요.');
+			return false;
+		}
+		if(cate2 == ''){
+			alert('2차 카테고리를 선택해주세요.');
+			return false;
+		}
+		if(title == '' || title == null){
+			alert('제목 입력은 필수입니다.');
+			$('input[name=title]').focus();
+			return false;
+		}
+		if(content == '' || content == null){
+			alert('내용 입력은 필수입니다.');
+			$('textarea[name=content]').focus();
+			return false;
+		}
+		
+		alert('작성이 완료되었습니다');
+		
+	});
+	
+	$("select[name=cate1]").change(function() {
+		let cate1 = $(this).val();
+		let cate2 = $("select[name=cate2]");
+		
+		cate2.empty();
+		if(cate1 == 1){
+			cate2.append('<option value="">2차 선택</option>');
+			cate2.append('<option value=1>가입</option>');
+			cate2.append('<option value=2>탈퇴</option>');
+			cate2.append('<option value=3>회원정보</option>');
+			cate2.append('<option value=4>로그인</option>');
+		}
+		if(cate1 == 2){
+			cate2.append('<option value="">2차 선택</option>');
+			cate2.append('<option value=1>쿠폰/할인혜텍</option>');
+			cate2.append('<option value=2>포인트</option>');
+			cate2.append('<option value=3>제휴</option>');
+			cate2.append('<option value=4>이벤트</option>');
+		}
+		if(cate1 == 3){
+			cate2.append('<option value="">2차 선택</option>');
+			cate2.append('<option value=1>상품</option>');
+			cate2.append('<option value=2>결제</option>');
+			cate2.append('<option value=3>구매내역</option>');
+			cate2.append('<option value=4>영수증/증빙</option>');
+		}
+		if(cate1 == 4){
+			cate2.append('<option value="">2차 선택</option>');
+			cate2.append('<option value=1>배송상태/기간</option>');
+			cate2.append('<option value=2>배송정보확인/변경</option>');
+			cate2.append('<option value=3>해외배송</option>');
+			cate2.append('<option value=4>당일배송</option>');
+			cate2.append('<option value=5>해외직구</option>');
+		}
+		if(cate1 == 5){
+			cate2.append('<option value="">2차 선택</option>');
+			cate2.append('<option value=1>반품신청/철회</option>');
+			cate2.append('<option value=2>반품정보확인/변경</option>');
+			cate2.append('<option value=3>AS신청/철회</option>');
+			cate2.append('<option value=4>교환정보확인/변경</option>');
+			cate2.append('<option value=5>취소신청/철회</option>');
+			cate2.append('<option value=6>취소확인/환불정보</option>');
+		}
+		if(cate1 == 6){
+			cate2.append('<option value="">2차 선택</option>');
+			cate2.append('<option value=1>여행/숙박</option>');
+			cate2.append('<option value=2>항공</option>');
+		}
+		if(cate1 == 9){
+			cate2.append('<option value="">2차 선택</option>');
+			cate2.append('<option value=1>서비스 이용규칙 위반</option>');
+			cate2.append('<option value=2>지식재산권침해</option>');
+			cate2.append('<option value=3>법령 및 정책위반 상품</option>');
+			cate2.append('<option value=4>게시물 정책위반</option>');
+			cate2.append('<option value=5>직거래/외부거래유도</option>');
+			cate2.append('<option value=6>표시광고</option>');
+			cate2.append('<option value=7>청소년 위해상품/이미지</option>');
+		}
+	});
+
+	
+});
+</script>
+      <section id="cs">
+        <div class="qna">
+          <nav>
+            <div>
+              <p>홈<span>></span>문의하기</p>
+            </div>
+          </nav>
+          <section class="write">
+            <aside>
+              <h2>문의하기</h2>
+              <ul>
+				<li th:classappend="${cate1} eq 1 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=1}">회원</a></li>
+                <li th:classappend="${cate1} eq 2 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=2}">쿠폰/혜택/이벤트</a></li>
+                <li th:classappend="${cate1} eq 3 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=3}">주문/결제</a></li>
+                <li th:classappend="${cate1} eq 4 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=4}">배송</a></li>
+                <li th:classappend="${cate1} eq 5 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=5}">취소/반품/교환</a></li>
+                <li th:classappend="${cate1} eq 6 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=6}">여행/숙박/항공</a></li>
+                <li th:classappend="${cate1} eq 9 ?'on':'off'"><a th:href="@{/cs/qna/list?group=faq&cate1=9}">안전거래</a></li>
+              </ul>
+            </aside>
+            <article>
+              <form th:action="@{/cs/qna/write}" method="post">
+              <input type="hidden" name="uid" th:value="buyer">
+                <table>
+                  <tr>
+                    <td>문의유형</td>
+                    <td>
+                      <select name="cate1">
+                        <option value="0">1차 선택</option>
+                        <option th:each="cate:${c1Names}" th:value="${cate.cate1}">[[${cate.c1Name}]]</option>
+                      </select>
+                      <select name="cate2">
+							<option value="">2차 선택</option>
+							<option value="가입">가입</option>
+							<option value="탈퇴">탈퇴</option>
+							<option value="회원정보">회원정보</option>
+							<option value="로그인">로그인</option>
+		                </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>문의제목</td>                  
+                    <td>
+                      <input type="text" name="title" placeholder="제목을 입력하세요."/>
+                    </td>
+                  </tr>                
+                  <tr>
+                    <td>문의내용</td>                  
+                    <td>
+                      <textarea name="content" placeholder="내용을 입력하세요."></textarea>
+                    </td>
+                  </tr>
+                </table>
+                <div>
+                  <a th:href="@{list}" class="btnList">취소하기</a>
+                  <input type="submit" class="btnSubmit" value="등록하기"/>
+                </div>
+              </form>
+            </article>
+          </section>
+        </div>
+      </section>
+
+<th:block th:include="@{cs/_footer.html}"/>
+
+</html>

@@ -1,0 +1,93 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:include="@{cs/_header.html}"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+$(() => {
+	  $('.more').click(function (e) {
+	        e.preventDefault();
+	        let status = $(this).prev().css('display') === 'none';
+	      if (status) {
+	        $(this).siblings('li:nth-child(n+4)').css('display','block');
+	        $(this).children('a').text('간단히 보기');
+	      } else{
+	        $(this).siblings('li:nth-child(n+4)').css('display','none');
+	        $(this).children('a').text('더보기');
+	      }
+	    });
+});
+</script>
+
+      <section id="cs">
+        <div class="faq">
+          <nav>
+            <div>
+              <p>홈<span>></span>자주묻는 질문</p>
+            </div>
+          </nav>
+          <section class="list">
+            <aside>
+              <h2>자주묻는 질문</h2>
+              <ul>
+                <li th:classappend="${cate1} eq 1 ?'on':'off'"><a th:href="@{/cs/faq/list?group=faq&cate1=1}">회원</a></li>
+                <li th:classappend="${cate1} eq 2 ?'on':'off'"><a th:href="@{/cs/faq/list?group=faq&cate1=2}">쿠폰/혜택/이벤트</a></li>
+                <li th:classappend="${cate1} eq 3 ?'on':'off'"><a th:href="@{/cs/faq/list?group=faq&cate1=3}">주문/결제</a></li>
+                <li th:classappend="${cate1} eq 4 ?'on':'off'"><a th:href="@{/cs/faq/list?group=faq&cate1=4}">배송</a></li>
+                <li th:classappend="${cate1} eq 5 ?'on':'off'"><a th:href="@{/cs/faq/list?group=faq&cate1=5}">취소/반품/교환</a></li>
+                <li th:classappend="${cate1} eq 6 ?'on':'off'"><a th:href="@{/cs/faq/list?group=faq&cate1=6}">여행/숙박/항공</a></li>
+                <li th:classappend="${cate1} eq 9 ?'on':'off'"><a th:href="@{/cs/faq/list?group=faq&cate1=9}">안전거래</a></li>
+              </ul>
+            </aside>
+            <article>              
+              <nav th:if="${cate1} eq 1">
+                <h1>회원</h1>
+                <h2>가장 자주 묻는 질문입니다.</h2>
+              </nav>
+              
+              <nav th:if="${cate1} eq 2">
+                <h1>쿠폰/이벤트</h1>
+                <h2>가장 자주 묻는 질문입니다.</h2>
+              </nav>
+              
+              <nav th:if="${cate1} eq 3">
+                <h1>주문/결제</h1>
+                <h2>가장 자주 묻는 질문입니다.</h2>
+              </nav>
+              
+              <nav th:if="${cate1} eq 4">
+                <h1>배송</h1>
+                <h2>가장 자주 묻는 질문입니다.</h2>
+              </nav>
+              
+              <nav th:if="${cate1} eq 5">
+                <h1>취소/반품/교환</h1>
+                <h2>가장 자주 묻는 질문입니다.</h2>
+              </nav>
+              
+              <nav th:if="${cate1} eq 6">
+                <h1>여행/숙박/항공</h1>
+                <h2>가장 자주 묻는 질문입니다.</h2>
+              </nav>
+              
+              <nav th:if="${cate1} eq 9">
+                <h1>안전거래</h1>
+                <h2>가장 자주 묻는 질문입니다.</h2>
+              </nav>
+              <div th:each="cate:${cate2}">
+                <h3>[[${cate.c2Name}]]</h3>
+                <ul>
+                 <th:block th:each="faq:${faq}">
+                  <li th:if="${faq.cate2} eq ${cate.cate2}"><a th:href="@{/cs/faq/view(group=faq,cate1=${faq.cate1},no=${faq.no})}"><span>Q.</span>[[${faq.title}]]</a></li>
+                 </th:block>
+                  <li class="more"><a href="#">더보기</a></li>
+                </ul>
+              </div>
+            </article>
+          </section>
+        </div>
+      </section>
+      
+<th:block th:include="@{cs/_footer.html}"/>
+
+</html>
